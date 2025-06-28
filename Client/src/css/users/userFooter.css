@@ -1,0 +1,184 @@
+
+        .top-bar {
+          background-color: #e7ecf7;
+          padding: 10px 0;
+          font-weight: 700;
+          font-size: 0.9rem;
+          color: #0a48e8;
+          letter-spacing: 0.1em;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 6px;
+          user-select: none;
+        }
+
+        .top-bar svg {
+          stroke-width: 1.5;
+          font-size: 1.2rem;
+          margin-left: 6px;
+        }
+
+        .footer-body {
+          padding: 40px 40px 30px;
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .list-section h6 {
+          font-weight: 700;
+          margin-bottom: 15px;
+          user-select: none;
+          font-size: 0.95rem;
+        }
+
+        .list-section ul {
+          list-style: none;
+          padding-left: 0;
+          margin: 0;
+        }
+
+        .list-section li {
+          margin-bottom: 12px;
+          font-size: 0.95rem;
+          cursor: pointer;
+          user-select: none;
+          display: flex;
+          align-items: center;
+        }
+
+        .list-section li svg {
+          margin-right: 8px;
+          min-width: 18px;
+          min-height: 18px;
+        }
+
+        .reviews-badge {
+          background-color: black;
+          color: white;
+          border-radius: 20px;
+          padding: 2px 8px;
+          font-size: 0.75rem;
+          font-weight: 700;
+          margin-left: 5px;
+          user-select: none;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .owl-section {
+          display: flex;
+          gap: 25px;
+          margin-bottom: 15px;
+          user-select: none;
+        }
+
+        .owl-icon {
+          width: 48px;
+          height: 48px;
+          fill: black;
+          flex-shrink: 0;
+          user-select: none;
+        }
+
+        .owl-text {
+          font-size: 0.95rem;
+          max-width: 320px;
+          line-height: 1.4;
+          user-select: text;
+        }
+
+        .owl-text em {
+          font-style: italic;
+        }
+
+        .newsletter-container {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          user-select: none;
+          margin-bottom: 5px;
+        }
+
+        .newsletter-input {
+          border: 1.5px solid black;
+          padding: 8px 12px;
+          font-size: 1rem;
+          flex-grow: 1;
+          min-width: 200px;
+        }
+
+        .newsletter-button {
+          background-color: black;
+          border: none;
+          color: white;
+          padding: 9px 15px;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.1rem;
+          transition: background-color 0.3s ease;
+        }
+        .newsletter-button:hover {
+          background-color: #222;
+        }
+
+        .social-icons {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          font-size: 1.3rem;
+          user-select: none;
+        }
+
+        .social-icons svg {
+          cursor: pointer;
+          transition: color 0.3s ease;
+        }
+        .social-icons svg:hover {
+          color: #0a48e8;
+        }
+
+        .footer-bottom {
+          background-color: #faf5ed;
+          text-align: center;
+          padding: 14px 20px;
+          font-size: 0.9rem;
+          font-weight: 600;
+          user-select: none;
+        }
+
+        .footer-bottom a {
+          color: black;
+          text-decoration: underline;
+          margin: 0 8px;
+          cursor: pointer;
+          user-select: text;
+        }
+        .footer-bottom a:hover {
+          color: #0a48e8;
+        }
+
+        @media (max-width: 991px) {
+          .footer-body {
+            padding: 40px 20px;
+          }
+          .footer-flex {
+            flex-direction: column;
+            gap: 32px;
+            align-items: flex-start;
+          }
+          .owl-section {
+            justify-content: flex-start;
+          }
+          .newsletter-container {
+            flex-wrap: wrap;
+          }
+          .newsletter-input {
+            flex-grow: 1;
+            width: 100%;
+            margin-bottom: 10px;
+          }
+        }
