@@ -3,60 +3,71 @@ import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 import BackEndUrl from '../config/BackEndUrl';
 import axios from 'axios';
-const Registration=()=>{
-    const [input, setInput] = useState({});
+import '../css/user/registation.css'; // 👈 custom CSS
 
-    const handleInput=(e)=>{
-        let name=e.target.name;
-        let value=e.target.value;
-        setInput(values=>({...values, [name]:value}));
-       console.log(input);         
-    }
+const Registration = () => {
+  const [input, setInput] = useState({});
 
+  const handleInput = (e) => {
+    const { name, value } = e.target;
+    setInput(prev => ({ ...prev, [name]: value }));
+  };
 
-   const handleSubmit=async(e)=>{
-      e.preventDefault();
-       let api=`${BackEndUrl}/user/registration`;
-       const response = await axios.post(api, input);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const api = `${BackEndUrl}/user/registration`;
+      const response = await axios.post(api, input);
       console.log(response.data);
-      alert("You are Succesfully Registered!!");
-   }
+      alert("You are Successfully Registered!");
+    } catch (error) {
+      console.error(error);
+      alert("Registration failed. Try again.");
+    }
+  };
 
-    return(
-        <>
-          
-            <Form style={{width:"300px", margin:"auto"}}>
-             <h1> User SignUp </h1>
-      <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Enter Name</Form.Label>
-        <Form.Control type="text" name="name" onChange={handleInput} />
-      </Form.Group>
-       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Enter City</Form.Label>
-        <Form.Control type="text" name="city" onChange={handleInput}  />
-      </Form.Group>
-       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Enter Address</Form.Label>
-        <Form.Control type="text" name="address" onChange={handleInput}  />
-      </Form.Group>
-       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Enter Pin code</Form.Label>
-        <Form.Control type="number" name='pincode' onChange={handleInput}  />
-      </Form.Group>
-       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Enter Email</Form.Label>
-        <Form.Control type="email" name='email' onChange={handleInput}  />
-      </Form.Group>
-       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Enter Password</Form.Label>
-        <Form.Control type="password" name="password" onChange={handleInput}  />
-      </Form.Group>
-      <Button variant="primary" type="submit" onClick={handleSubmit}>
-        Submit!
-      </Button>
-    </Form>      
-        </>
-    )
-}
+  return (
+    <div className="registration-wrapper">
+      <div className="registration-card">
+        <h2 className="text-center mb-4">☕ User Sign Up</h2>
+        <Form onSubmit={handleSubmit}>
+          <Form.Group className="mb-3">
+            <Form.Label>Full Name</Form.Label>
+            <Form.Control type="text" name="name" onChange={handleInput} required />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>City</Form.Label>
+            <Form.Control type="text" name="city" onChange={handleInput} required />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Address</Form.Label>
+            <Form.Control type="text" name="address" onChange={handleInput} required />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Pincode</Form.Label>
+            <Form.Control type="number" name="pincode" onChange={handleInput} required />
+          </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Label>Email</Form.Label>
+            <Form.Control type="email" name="email" onChange={handleInput} required />
+          </Form.Group>
+
+          <Form.Group className="mb-4">
+            <Form.Label>Password</Form.Label>
+            <Form.Control type="password" name="password" onChange={handleInput} required />
+          </Form.Group>
+
+          <Button variant="dark" type="submit" className="w-100">
+            Register
+          </Button>
+        </Form>
+      </div>
+    </div>
+  );
+};
 
 export default Registration;

@@ -1,0 +1,61 @@
+.coffee-navbar {
+  background-color: #2a211c !important;
+  padding: 15px 0;
+  font-family: 'Poppins', sans-serif;
+  border-bottom: 1px solid #463c35;
+}
+
+.coffee-brand {
+  color: #ffe5b4 !important;
+  font-weight: 600;
+  font-size: 24px;
+}
+
+.coffee-links .nav-link {
+  color: #e0c9a6 !important;
+  margin-right: 20px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.coffee-links .nav-link:hover {
+  color: #fff8e7 !important;
+}
+
+.coffee-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.signin-btn {
+  color: #ffcc99;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.signin-btn:hover {
+  color: #fff;
+}
+
+.cart-wrapper {
+  position: relative;
+  cursor: pointer;
+}
+
+.cart-icon {
+  font-size: 22px;
+  color: #ffe5b4;
+}
+
+.cart-count {
+  position: absolute;
+  top: -6px;
+  right: -12px;
+  background-color: #c07d57;
+  color: #fff;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+}
