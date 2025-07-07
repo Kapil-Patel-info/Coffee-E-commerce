@@ -1,54 +1,71 @@
-const adminModel = require("../models/adminModel");
+const AdminModel= require("../models/adminModel");
+const ProductModel= require("../models/productModel");
 const multer = require('multer');
-const { storage } = require('../cloudinary');
-const upload = multer({ storage });
-const Product = require('../models/productModel');  // updated product model with images: [String]
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const cloudinary = require('../cloudinary');
 
+// Set up Cloudinary storage for multer
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'myphotos', // folder name Cloudinary account
+        format: async (req, file) => 'jpg', // supports promises as well
+        public_id: (req, file) => Date.now() + '-' + file.originalname,
+    },
+});
 
-const uploadProduct = async (req, res) => {
-  try {
-    const { name, category, price, description } = req.body;
+const upload = multer({ storage: storage }).array('images', 10); //image size
 
-    const imageUrls = req.files.map(file => file.path); // multer + Cloudinary adds 'path'
+const productSave = async (req, res) => {
+    upload(req, res, async (err) => {
+        if (err) {
+            return res.status(500).send("Error uploading files: " + err.message);
+        }
 
-    const newProduct = new Product({
-      name,
-      category,
-      price,
-      description,
-      images: imageUrls, // assuming your schema supports an array
+        try {
+            const { name, description, price, category } = req.body;
+            const imageUrls = req.files.map(file => file.path);
+            const Product= await ProductModel.create({
+                 name:name, 
+                description:description, 
+                price:price, 
+                category:category,
+                images:imageUrls,
+                defaultImage:imageUrls[0]
+            })
+           res.status(200).send("Data saved successfully!");
+        } catch (error) {
+            res.status(500).send("Error saving data: " + error.message);
+        }
     });
+   
+}
 
-    await newProduct.save();
-    res.status(200).json({ message: 'Product uploaded', product: newProduct });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Product upload failed' });
-  }
-};
 
-const adminLogin = async (req, res) => {
-  const { email, password } = req.body;
 
-  try {
-    const response = await adminModel.findOne({ email });
 
-    if (!response) {
-      return res.status(401).send("Invalid email");
+
+const adminLogin=async(req, res)=>{
+    const { adminid , password } = req.body;  
+    const Admin= await AdminModel.findOne({adminid:adminid});
+    if (!Admin)
+    {
+        res.status(401).send({msg:"Invalid Admin ID"});
     }
 
-    if (response.password !== password) {
-      return res.status(401).send("Invalid password");
+    if (Admin.password!=password)
+    {
+         res.status(401).send({msg:"Invalid Credentials!"});
     }
 
-    res.status(200).send({ message: "Login Successful", response });
-  } catch (error) {
-    console.error("Login error:", error);
-    res.status(500).send("Server error");
-  }
-};
+  
+    res.status(201).send(Admin);
 
-module.exports = {
-  adminLogin,
-  uploadProduct
-};
+}
+
+
+
+module.exports={
+    adminLogin,
+    productSave
+}

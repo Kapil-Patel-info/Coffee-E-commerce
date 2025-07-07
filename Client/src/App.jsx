@@ -1,56 +1,36 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import UserDashboard from "./pages/user/UserDashboard";
-import AdminDashboard from "./pages/admin/AdminDashboard";
-import Home from "./pages/user/routePages/Home";
-import About from "./pages/user/routePages/About";
-import Contact from "./pages/user/routePages/Contact";
-import Cart from "./pages/user/routePages/Cart";
-import Search from "./pages/user/routePages/Search";
-import UserLogin from "./pages/user/routePages/UserLogin";
-import CreateUser from "./pages/user/routePages/CreateUser";
-import AdminInsert from "./pages/admin/AdminRoutePages/AdminInsert";
-
-function App() {
-  return (
+import  {BrowserRouter, Routes, Route} from "react-router-dom";
+import Layout from "./Layout";
+import Home from "./pages/Home";
+import AdminLogin from "./admin/adminlogin";
+import AdminDashBoard from "./admin/AdminDashBoard";
+import UploadProduct from "./admin/UploadProduct";
+import CartData from "./CartData";
+import Signup from "./pages/Signup";
+import Registration from "./pages/Registration";
+const App=()=>{
+  return(
     <>
-      <BrowserRouter>
-        <Routes>
-
-                              
-            {/* userlogin */}
-
-         <Route path="/" element={<UserLogin />} />
-         <Route path="createUser" element={<CreateUser />} />
-
-        
-
-
-          {/* Admin */}
-          <Route path="/adminDashboard" element={<AdminDashboard />} >
-
-          <Route path="insert" element={<AdminInsert />} />
-          
-
-          </Route >
-
-
-
-
-
-
-          {/* user routes */}
-          <Route path="/userDashboard" element={<UserDashboard />}>
-             
-            <Route path="home" element={<Home />} />
-            <Route path="about" element={<About />} />
-            <Route path="contact" element={<Contact />} />
-            <Route path="cart" element={<Cart />} />
-            <Route path="search" element={<Search />} />
+       <BrowserRouter>
+         <Routes>
+          <Route path="/" element={<Layout/>}>
+          <Route index element={<Home/>} />
+          <Route path="home" element={<Home/>}/>
+          <Route path="signup" element={<Signup/>}/>
+          <Route path="registration" element={<Registration/>}/>
+           <Route path="/admin" element={<AdminLogin/>}></Route>
+           <Route path="cartdata" element={<CartData/>}/>
           </Route>
-        </Routes>
-      </BrowserRouter>
-    </>
-  );
-}
+         </Routes>
+        
+         <Routes>
+             <Route path="/admindashboard" element={<AdminDashBoard/>}>
+             <Route path="uploadproduct" element={<UploadProduct/>} />
+              
+             </Route>
+         </Routes>
 
+       </BrowserRouter>
+    </>
+  )
+}
 export default App;
