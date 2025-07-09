@@ -14,9 +14,9 @@ mongoose.connect(process.env.DBCON).then(()=>{
     console.log("DB Connected Succefully!")
 })
 app.use(cors());
-// parse application/x-www-form-urlencoded
+
 app.use(bodyParser.urlencoded())
-// parse application/json
+
 app.use(bodyParser.json())
 
 

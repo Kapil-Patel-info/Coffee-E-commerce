@@ -4,7 +4,7 @@ const ProductController= require("../controllers/productController");
 
 
 route.get("/homedisplay", ProductController.homeDisplay);
-
+route.get("/detail/:id", ProductController.productDetail);
 
 
 module.exports=route;

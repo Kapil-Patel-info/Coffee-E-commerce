@@ -18,7 +18,7 @@ const AdminDashBoard = () => {
                 <aside className="admin-sidebar">
                     <Nav defaultActiveKey="/uploadproduct" className="flex-column nav-links">
                         <Nav.Link as={Link} to="uploadproduct">Upload Product</Nav.Link>
-                        <Nav.Link as={Link} to="viewproducts">View Products</Nav.Link>
+                        <Nav.Link as={Link} to="UpdateProducts">Update Products</Nav.Link>
                         <Nav.Link as={Link} to="orders">Orders</Nav.Link>
                         <Nav.Link as={Link} to="users">Users</Nav.Link>
                         <Nav.Link as={Link} to="settings">Settings</Nav.Link>

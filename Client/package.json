@@ -12,7 +12,9 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
     "axios": "^1.10.0",
+    "bcryptjs": "^3.0.2",
     "bootstrap": "^5.3.7",
+    "jsonwebtoken": "^9.0.2",
     "react": "^19.1.0",
     "react-bootstrap": "^2.10.10",
     "react-dom": "^19.1.0",
