@@ -3,55 +3,44 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(to bottom right, #2a211c, #1e1b18);
-  font-family: 'Poppins', sans-serif;
-  padding: 20px;
+  background-color: #f4f4f4; 
 }
 
 .signup-card {
-  background-color: #3e2c24;
-  color: #ffe5b4;
-  padding: 40px;
-  border-radius: 16px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-  width: 100%;
-  max-width: 400px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 300px; 
+  transition: transform 0.2s; 
 }
 
-.signup-card .form-label {
-  color: #e0c9a6;
+.signup-card:hover {
+  transform: scale(1.02); 
 }
 
-.signup-card .form-control {
-  background-color: #2a211c;
-  border: 1px solid #463c35;
-  color: #fff;
+.form-control-custom {
+  border: 1px solid #ddd; 
+  border-radius: 8px; 
 }
 
-.signup-card .form-control:focus {
-  border-color: #ffe5b4;
-  box-shadow: none;
+.btn-custom {
+  background-color: #4b2e2e; 
+  color: white; 
+  border-radius: 8px; 
 }
 
-.signup-card .btn-dark {
-  background-color: #50362d;
-  border-color: #50362d;
-  font-weight: 500;
-}
-
-.signup-card .btn-dark:hover {
-  background-color: #6a4533;
-  border-color: #6a4533;
+.btn-custom:hover {
+  background-color: #6e4c4c; /* Darker shade on hover */
 }
 
 .signup-link {
-  color: #ffcc99;
-  font-weight: 600;
+  color: #4b2e2e; 
   cursor: pointer;
-  margin-left: 5px;
-}
-
-.signup-link:hover {
-  color: #fff;
   text-decoration: underline;
 }
+
+*{
+  color: #4b2e2e;
+}
+

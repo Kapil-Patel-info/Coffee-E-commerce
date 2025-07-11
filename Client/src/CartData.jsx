@@ -1,36 +1,54 @@
+// src/components/CartData.jsx
+
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Table from 'react-bootstrap/Table';
 import { FaPlusCircle, FaMinusCircle } from "react-icons/fa";
 import { MdPriceChange } from "react-icons/md";
 import Button from 'react-bootstrap/Button';
-import { dataIncrease, dataDecrease, itemRemove } from "./cartSlice";
-import './css/user/cart.css'; // Custom CSS
+import {
+  dataIncrease,
+  dataDecrease,
+  itemRemove
+} from "../src/cartSlice";
+import './css/user/cart.css';
 
 const CartData = () => {
-  const cartData = useSelector(state => state.mycart.cart);
+  const cartData = useSelector((state) => state.mycart.cart);
   const dispatch = useDispatch();
 
   let totalAmount = 0;
 
-  const ans = cartData.map((item, index) => {
+  const rows = cartData.map((item) => {
     const subtotal = item.price * item.qnty;
     totalAmount += subtotal;
+
     return (
-      <tr key={item.id}>
-        <td><img src={item.defaultImage} width="80" height="80" className="product-img" /></td>
-        <td>{item.name}</td>
+      <tr key={item.id} className="cart-row">
+        <td>
+          <img
+            src={item.defaultImage}
+            alt={item.name}
+            className="product-img"
+          />
+        </td>
+        <td className="cart-product-name">{item.name}</td>
         <td>{item.description}</td>
         <td>{item.category}</td>
         <td>₹{item.price}</td>
         <td>
           <FaPlusCircle
             className="quantity-icon"
-            onClick={() => dispatch(dataIncrease({ id: item.id }))}
-          />{" "}
-          {item.qnty}{" "}
+            onClick={() =>
+              dispatch(dataIncrease({ id: item.id }))
+            }
+          />
+          <span className="quantity-text">{item.qnty}</span>
           <FaMinusCircle
             className="quantity-icon"
-            onClick={() => dispatch(dataDecrease({ id: item.id }))}
+            onClick={() =>
+              dispatch(dataDecrease({ id: item.id }))
+            }
           />
         </td>
         <td>₹{subtotal}</td>
@@ -38,7 +56,9 @@ const CartData = () => {
           <Button
             variant="outline-danger"
             size="sm"
-            onClick={() => dispatch(itemRemove({ id: item.id }))}
+            onClick={() =>
+              dispatch(itemRemove({ id: item.id }))
+            }
           >
             Remove
           </Button>
@@ -51,12 +71,7 @@ const CartData = () => {
     <div className="cart-wrapper">
       <h2 className="cart-heading">🛒 Your Cart</h2>
 
-      <div className="cart-total">
-        <MdPriceChange size={24} /> Total: ₹{totalAmount}
-        <Button variant="warning" style={{ marginLeft: "20px" }}>Check Out</Button>
-      </div>
-
-      <Table striped bordered hover responsive className="cart-table">
+      <Table bordered responsive className="cart-table">
         <thead>
           <tr>
             <th>Image</th>
@@ -70,14 +85,30 @@ const CartData = () => {
           </tr>
         </thead>
         <tbody>
-          {ans}
-          <tr>
-            <td colSpan="6" className="text-end"><strong>Total</strong></td>
-            <td><strong>₹{totalAmount}</strong></td>
+          {rows}
+          <tr className="cart-summary">
+            <td colSpan="6" className="text-end">
+              <strong>Total</strong>
+            </td>
+            <td>
+              <strong>₹{totalAmount}</strong>
+            </td>
             <td></td>
           </tr>
         </tbody>
       </Table>
+
+      <div className="cart-bottom-bar">
+        <div className="total-amount">
+          <MdPriceChange size={24} />
+          <span>
+            Total Amount: <strong>₹{totalAmount}</strong>
+          </span>
+        </div>
+        <Button variant="dark" size="lg" className="checkout-btn">
+          Proceed to Checkout
+        </Button>
+      </div>
     </div>
   );
 };

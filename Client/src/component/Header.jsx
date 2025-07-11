@@ -1,3 +1,4 @@
+import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -20,11 +21,12 @@ const Header = () => {
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" className="border-0" />
+        
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto coffee-links">
             <Nav.Link as={Link} to="/home">Home</Nav.Link>
-            <Nav.Link as={Link} to="/features">Menu</Nav.Link>
-            <Nav.Link as={Link} to="/about">About</Nav.Link>
+            {/* <Nav.Link as={Link} to="/features">Menu</Nav.Link>
+            <Nav.Link as={Link} to="/about">About</Nav.Link> */}
           </Nav>
 
           <div className="coffee-actions">

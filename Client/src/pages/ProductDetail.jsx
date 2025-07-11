@@ -48,36 +48,47 @@ const ProductDetail = () => {
   };
 
   return (
-    <div className="product-detail-container">
-      <div className="product-gallery">
-        <div className="thumbnail-list">
-          {product.images.map((img, index) => (
-            <img
-              key={index}
-              src={img}
-              alt={`thumb-${index}`}
-              className={`thumbnail ${selectedImage === img ? 'active' : ''}`}
-              onClick={() => setSelectedImage(img)}
-            />
-          ))}
+    <div className="container product-detail-container mt-5">
+      <div className="row">
+        <div className="col-md-6 product-gallery">
+          <div className="thumbnail-list">
+            {product.images.map((img, index) => (
+              <img
+                key={index}
+                src={img}
+                alt={`thumb-${index}`}
+                className={`thumbnail ${selectedImage === img ? 'active' : ''}`}
+                onClick={() => setSelectedImage(img)}
+              />
+            ))}
+          </div>
+
+          <div className="main-image">
+            <img src={selectedImage} alt="Selected Product" className="img-fluid" />
+          </div>
         </div>
 
-        <div className="main-image">
-          <img src={selectedImage} alt="Selected Product" />
+        <div className="col-md-6 product-detail-info">
+          <h1 className="product-title">{product.name}</h1>
+          <p className="product-desc">{product.description}</p>
+          <p className="product-meta"><strong>Category:</strong> {product.category}</p>
+          <h3 className="product-price">₹ {product.price}</h3>
+
+          <div className="action-buttons">
+            <button className="btn btn-outline-dark luxury-btn" onClick={handleAddToCart}>
+              🛒 Add to Cart
+            </button>
+            <button className="btn btn-dark luxury-btn buy-now-btn" onClick={handleBuyNow}>
+              ⚡ Buy Now
+            </button>
+          </div>
         </div>
       </div>
-
-      <div className="product-detail-info">
-        <h1 className="product-title">{product.name}</h1>
-        <p className="product-desc">{product.description}</p>
-        <p className="product-meta"><strong>Category:</strong> {product.category}</p>
-
-        <h3 className="product-price">₹ {product.price}</h3>
-
-        <div className="action-buttons">
-          <button className="btn btn-outline-dark luxury-btn" onClick={handleAddToCart}>🛒 Add to Cart</button>
-          <button className="btn btn-dark luxury-btn buy-now-btn" onClick={handleBuyNow}>⚡ Buy Now</button>
-        </div>
+      
+      {/* Promotional Banner */}
+      <div className="promotional-banner mt-4">
+        <p>Grab <strong>30% Off</strong>. Use Code: <strong>SUMMER30</strong> at checkout!</p>
+        <p>Grab <strong>2 Coffees at 40% Off</strong>. Use Code: <strong>SUMMER40</strong> at checkout!</p>
       </div>
     </div>
   );

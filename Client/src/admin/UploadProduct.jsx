@@ -3,11 +3,11 @@ import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 import BackEndUrl from '../config/BackEndUrl';
 import axios from 'axios';
-import '../css/upload.css'; // 👈 Add CSS file
+import '../css/upload.css';
 
 const UploadProduct = () => {
   const [input, setInput] = useState({});
-  const [selectedImages, setSelectedImages] = useState("");
+  const [selectedImages, setSelectedImages] = useState([]);
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -31,8 +31,16 @@ const UploadProduct = () => {
     }
 
     try {
+      const token = localStorage.getItem("adminToken");
       const api = `${BackEndUrl}/admin/productsave`;
-      const response = await axios.post(api, formData);
+
+      const response = await axios.post(api, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`
+        }
+      });
+
       alert("Product Saved!");
       console.log(response.data);
     } catch (error) {
@@ -65,9 +73,14 @@ const UploadProduct = () => {
             <Form.Label>Product Category</Form.Label>
             <Form.Select name="category" onChange={handleInput} required>
               <option value="">Select Category</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="kids">Kids</option>
+              <option value="whole-bean">Whole Bean</option>
+              <option value="ground">Ground Coffee</option>
+              <option value="instant">Instant Coffee</option>
+              <option value="cold-brew">Cold Brew</option>
+              <option value="espresso">Espresso</option>
+              <option value="filter-coffee">Filter Coffee</option>
+              <option value="decaf">Decaf</option>
+              <option value="pods-capsules">Pods & Capsules</option>
             </Form.Select>
           </Form.Group>
 
@@ -76,9 +89,7 @@ const UploadProduct = () => {
             <Form.Control type="file" multiple onChange={handleImages} required />
           </Form.Group>
 
-          <Button variant="dark" type="submit" className="w-100">
-            Upload Product
-          </Button>
+          <Button variant="dark" type="submit" className="w-100">Upload Product</Button>
         </Form>
       </div>
     </div>

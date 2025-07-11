@@ -1,45 +1,32 @@
-.registration-wrapper {
+.registration-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  padding: 20px;
-  background: linear-gradient(to bottom right, #2a211c, #1e1b18);
-  font-family: 'Poppins', sans-serif;
+  height: 100vh;
+  background-color: #f8f9fa; /* Light background */
 }
 
 .registration-card {
-  background-color: #3e2c24;
-  color: #ffe5b4;
-  padding: 40px;
-  border-radius: 16px;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
-  width: 100%;
-  max-width: 450px;
+  background-color: #fff; /* White card background */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  width: 350px; /* Fixed width for card */
 }
 
-.registration-card .form-label {
-  color: #e0c9a6;
+h2 {
+  color: #563d7c; /* Dark purple for headers */
 }
 
-.registration-card .form-control {
-  background-color: #2a211c;
-  border: 1px solid #463c35;
-  color: #fff;
+button {
+  background-color: #563d7c; /* Matching button color */
+  border: none;
 }
 
-.registration-card .form-control:focus {
-  border-color: #ffe5b4;
-  box-shadow: none;
+button:hover {
+  background-color: #4a2c61; /* Darker on hover */
 }
 
-.registration-card .btn-dark {
-  background-color: #50362d;
-  border-color: #50362d;
-  font-weight: 500;
-}
-
-.registration-card .btn-dark:hover {
-  background-color: #664334;
-  border-color: #664334;
+input {
+  border-radius: 5px;
 }

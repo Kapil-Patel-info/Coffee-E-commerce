@@ -8,38 +8,41 @@ const cloudinary = require('../cloudinary');
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-        folder: 'myphotos', // folder name Cloudinary account
-        format: async (req, file) => 'jpg', // supports promises as well
+        folder: 'myphotos', 
+        format: async (req, file) => 'jpg', 
         public_id: (req, file) => Date.now() + '-' + file.originalname,
     },
 });
 
-const upload = multer({ storage: storage }).array('images', 10); //image size
+const upload = multer({ storage }).array('images', 10);
 
 const productSave = async (req, res) => {
-    upload(req, res, async (err) => {
-        if (err) {
-            return res.status(500).send("Error uploading files: " + err.message);
-        }
+  upload(req, res, async (err) => {
+    if (err) {
+      console.error("Upload error:", err);
+      return res.status(500).send("Upload failed: " + err.message);
+    }
 
-        try {
-            const { name, description, price, category } = req.body;
-            const imageUrls = req.files.map(file => file.path);
-            const Product= await ProductModel.create({
-                 name:name, 
-                description:description, 
-                price:price, 
-                category:category,
-                images:imageUrls,
-                defaultImage:imageUrls[0]
-            })
-           res.status(200).send("Data saved successfully!");
-        } catch (error) {
-            res.status(500).send("Error saving data: " + error.message);
-        }
-    });
-   
-}
+    try {
+      const { name, description, price, category } = req.body;
+      const imageUrls = req.files.map(file => file.path);
+
+      const product = await ProductModel.create({
+        name,
+        description,
+        price,
+        category,
+        images: imageUrls,
+        defaultImage: imageUrls[0]
+      });
+
+      res.status(200).send("Product saved!");
+    } catch (error) {
+      console.error("Save error:", error);
+      res.status(500).send("Save failed: " + error.message);
+    }
+  });
+};
 
 
 

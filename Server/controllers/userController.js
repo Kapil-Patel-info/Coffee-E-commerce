@@ -9,7 +9,7 @@ const userRegistration = async (req, res) => {
   try {
     const { name, city, address, email, password, pincode } = req.body;
 
-    // Validation
+
     if (!name || !city || !address || !email || !password || !pincode) {
       return res.status(400).json({ msg: "Please fill all required fields." });
     }
@@ -19,11 +19,9 @@ const userRegistration = async (req, res) => {
       return res.status(400).json({ msg: "User already exists!" });
     }
 
-    // Hash password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    const salt = await bcrypt.genSalt(10);      //salting 
+    const hashedPassword = await bcrypt.hash(password, salt);   //hashing
 
-    // Create user
     const user = await UserModel.create({
       name,
       city,
@@ -33,7 +31,13 @@ const userRegistration = async (req, res) => {
       pincode,
     });
 
-    res.status(201).json({ msg: "User Registered Successfully!" });
+    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "7d" });
+
+    res.status(201).json({
+      msg: "User Registered Successfully!",
+      token,
+      userId: user._id,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ msg: "Registration failed. Server error." });
@@ -84,6 +88,7 @@ const userAuthentication = async (req, res) => {
     res.status(401).json({ msg: "Invalid or expired token." });
   }
 };
+
 
 module.exports = {
   userRegistration,

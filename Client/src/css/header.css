@@ -1,44 +1,59 @@
+/* Navbar Container */
 .coffee-navbar {
-  background-color: #2a211c !important;
-  padding: 15px 0;
+  background-color: #fffefc;
+  /* padding: 16px 24px; */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   font-family: 'Poppins', sans-serif;
-  border-bottom: 1px solid #463c35;
 }
 
+/* Brand Name */
 .coffee-brand {
-  color: #ffe5b4 !important;
-  font-weight: 600;
-  font-size: 24px;
+  font-size: 28px;
+  font-weight: 700;
+  color: #3e322c !important;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: color 0.3s;
 }
 
+.coffee-brand:hover {
+  color: #d26a21 !important;
+}
+
+/* Nav Links */
 .coffee-links .nav-link {
-  color: #e0c9a6 !important;
-  margin-right: 20px;
+  font-size: 16px;
+  color: #4a3b33 !important;
   font-weight: 500;
-  transition: 0.3s;
+  margin-right: 24px;
+  transition: color 0.3s ease;
 }
 
 .coffee-links .nav-link:hover {
-  color: #fff8e7 !important;
+  color: #d26a21 !important;
 }
 
+/* Actions: Signin + Cart */
 .coffee-actions {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 24px;
 }
 
+/* Sign In Button */
 .signin-btn {
-  color: #ffcc99;
+  font-size: 15px;
   font-weight: 500;
+  color: #4d3b32;
   cursor: pointer;
-  transition: 0.3s;
+  transition: color 0.3s;
 }
 
 .signin-btn:hover {
-  color: #fff;
+  color: #d26a21;
 }
 
+/* Cart Icon + Count Badge */
 .cart-wrapper {
   position: relative;
   cursor: pointer;
@@ -46,16 +61,40 @@
 
 .cart-icon {
   font-size: 22px;
-  color: #ffe5b4;
+  color: #3e322c;
+  transition: transform 0.2s ease;
 }
 
+.cart-wrapper:hover .cart-icon {
+  transform: scale(1.1);
+  color: #d26a21;
+}
+
+/* Cart Count Badge */
 .cart-count {
   position: absolute;
-  top: -6px;
+  top: -8px;
   right: -12px;
-  background-color: #c07d57;
-  color: #fff;
+  background-color: #e63946;
+  color: white;
   border-radius: 50%;
-  padding: 2px 6px;
+  padding: 3px 7px;
   font-size: 12px;
+  font-weight: bold;
+  min-width: 20px;
+  text-align: center;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .coffee-actions {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 12px;
+  }
+
+  .coffee-links .nav-link {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
 }

@@ -19,10 +19,11 @@ const Signup = () => {
       const response = await axios.post(api, { email, password });
 
       if (response.data.token) {
-        localStorage.setItem('userToken', response.data.token);
-         localStorage.setItem('userId', email);
+        localStorage.setItem('token', response.data.token); 
+        localStorage.setItem('userId', email);
+         navigate('/home'); 
         alert('✅ Login successful!');
-        navigate('/home'); 
+       
       } else {
         alert(response.data.msg || 'Login successful but no token received.');
       }
@@ -35,7 +36,7 @@ const Signup = () => {
   return (
     <div className="signup-wrapper">
       <div className="signup-card">
-        <h2 className="text-center mb-4">☕ User Sign In</h2>
+        <h2 className="text-center mb-4 h2">☕ User Sign In</h2>
         <Form onSubmit={handleLogin}>
           <Form.Group className="mb-3">
             <Form.Label>Email Address</Form.Label>
@@ -44,6 +45,7 @@ const Signup = () => {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className="form-control-custom"
             />
           </Form.Group>
 
@@ -54,10 +56,11 @@ const Signup = () => {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className="form-control-custom"
             />
           </Form.Group>
 
-          <Button variant="dark" type="submit" className="w-100 mb-3">
+          <Button variant="dark" type="submit" className="w-100 mb-3 btn-custom">
             Login
           </Button>
 
