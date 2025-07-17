@@ -1,0 +1,21 @@
+.order-wrapper {
+  padding: 40px;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+}
+
+.order-title {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #343a40;
+}
+
+.order-table {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}

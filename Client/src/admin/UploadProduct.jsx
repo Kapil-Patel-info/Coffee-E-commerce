@@ -3,15 +3,15 @@ import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 import BackEndUrl from '../config/BackEndUrl';
 import axios from 'axios';
-import '../css/upload.css';
+import '../css/UploadProduct.css'; // 👈 Add custom styles
 
 const UploadProduct = () => {
   const [input, setInput] = useState({});
-  const [selectedImages, setSelectedImages] = useState([]);
+  const [selectedImages, setSelectedImages] = useState("");
 
   const handleInput = (e) => {
     const { name, value } = e.target;
-    setInput(prev => ({ ...prev, [name]: value }));
+    setInput(values => ({ ...values, [name]: value }));
   };
 
   const handleImages = (e) => {
@@ -20,9 +20,9 @@ const UploadProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const formData = new FormData();
-    for (const key in input) {
+
+    for (let key in input) {
       formData.append(key, input[key]);
     }
 
@@ -31,67 +31,64 @@ const UploadProduct = () => {
     }
 
     try {
-      const token = localStorage.getItem("adminToken");
       const api = `${BackEndUrl}/admin/productsave`;
-
-      const response = await axios.post(api, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`
-        }
-      });
-
+      const response = await axios.post(api, formData);
       alert("Product Saved!");
-      console.log(response.data);
+      console.log(response);
     } catch (error) {
-      console.error("Error saving product:", error);
-      alert("Failed to save product.");
+      console.error("Upload failed:", error);
     }
   };
 
   return (
-    <div className="upload-wrapper">
-      <div className="upload-card">
-        <h2 className="text-center mb-4">📦 Upload New Product</h2>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3">
-            <Form.Label>Product Name</Form.Label>
-            <Form.Control type="text" name="name" onChange={handleInput} required />
-          </Form.Group>
+    <div className="upload-form-wrapper">
+      <h2 className="form-title">Add New Product</h2>
+      <Form className="upload-form" onSubmit={handleSubmit}>
+        <Form.Group className="mb-3">
+          <Form.Label>Product Name</Form.Label>
+          <Form.Control type="text" name="name" onChange={handleInput} placeholder="E.g. French Vanilla Coffee" />
+        </Form.Group>
 
-          <Form.Group className="mb-3">
-            <Form.Label>Product Description</Form.Label>
-            <Form.Control type="text" name="description" onChange={handleInput} required />
-          </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Description</Form.Label>
+          <Form.Control type="text" name="description" onChange={handleInput} placeholder="Brief about the product" />
+        </Form.Group>
 
-          <Form.Group className="mb-3">
-            <Form.Label>Product Price (₹)</Form.Label>
-            <Form.Control type="number" name="price" onChange={handleInput} required />
-          </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Price (₹)</Form.Label>
+          <Form.Control type="number" name="price" onChange={handleInput} placeholder="E.g. 599" />
+        </Form.Group>
 
-          <Form.Group className="mb-3">
-            <Form.Label>Product Category</Form.Label>
-            <Form.Select name="category" onChange={handleInput} required>
-              <option value="">Select Category</option>
-              <option value="whole-bean">Whole Bean</option>
-              <option value="ground">Ground Coffee</option>
-              <option value="instant">Instant Coffee</option>
-              <option value="cold-brew">Cold Brew</option>
-              <option value="espresso">Espresso</option>
-              <option value="filter-coffee">Filter Coffee</option>
-              <option value="decaf">Decaf</option>
-              <option value="pods-capsules">Pods & Capsules</option>
-            </Form.Select>
-          </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Category</Form.Label>
+        <Form.Select name="category" required>
+  <option value="">Select Category</option>
+  <option value="espresso">Espresso</option>
+  <option value="americano">Americano</option>
+  <option value="cappuccino">Cappuccino</option>
+  <option value="latte">Latte</option>
+  <option value="mocha">Mocha</option>
+  <option value="cold-brew">Cold Brew</option>
+  <option value="macchiato">Macchiato</option>
+  <option value="flat-white">Flat White</option>
+  <option value="affogato">Affogato</option>
+  <option value="frappuccino">Frappuccino</option>
+</Form.Select>
 
-          <Form.Group className="mb-4">
-            <Form.Label>Upload Product Images</Form.Label>
-            <Form.Control type="file" multiple onChange={handleImages} required />
-          </Form.Group>
+        </Form.Group>
 
-          <Button variant="dark" type="submit" className="w-100">Upload Product</Button>
-        </Form>
-      </div>
+        <Form.Group className="mb-4">
+          <Form.Label>Upload Product Images</Form.Label>
+          <Form.Control type="file" onChange={handleImages} multiple />
+          <Form.Text className="text-muted">You can select multiple images.</Form.Text>
+        </Form.Group>
+
+        <div className="text-end">
+          <Button variant="dark" type="submit">
+            Submit Product
+          </Button>
+        </div>
+      </Form>
     </div>
   );
 };

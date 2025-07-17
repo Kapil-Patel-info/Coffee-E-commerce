@@ -1,92 +1,155 @@
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
-import BackEndUrl from '../config/BackEndUrl';
+import { Button, Form, Container, Card, Row, Col } from 'react-bootstrap';
+import { FaCoffee, FaUser, FaMapMarkerAlt, FaEnvelope, FaLock, FaHome } from 'react-icons/fa';
 import axios from 'axios';
-import '../css/user/registation.css';
+import BackEndUrl from '../config/BackEndUrl';
 import { useNavigate } from 'react-router-dom';
 
 const Registration = () => {
-  const [input, setInput] = useState({
-    name: '',
-    city: '',
-    address: '',
-    pincode: '',
-    email: '',
-    password: ''
-  });
-  const navigate = useNavigate();
+    const navigate = useNavigate();
+    const [input, setInput] = useState({
+        name: '',
+        city: '',
+        address: '',
+        pincode: '',
+        email: '',
+        password: ''
+    });
 
-  const handleInput = (e) => {
-    const { name, value } = e.target;
-    setInput((prev) => ({ ...prev, [name]: value }));
-  };
+    const handleInput = (e) => {
+        const { name, value } = e.target;
+        setInput(prev => ({ ...prev, [name]: value }));
+    };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const api = `${BackEndUrl}/user/registration`;
+            const response = await axios.post(api, input);
+            console.log(response.data);
+            alert("You are successfully registered!");
+            navigate('/login'); // Redirect to login after registration
+        } catch (error) {
+            console.error("Registration error:", error);
+            alert("Registration failed. Please try again.");
+        }
+    };
 
-    try {
-      const api = `${BackEndUrl}/user/registration`;
-      const response = await axios.post(api, input);
+    return (
+        <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: '100vh' }}>
+            <Card className="p-4 shadow-lg" style={{ width: '100%', maxWidth: '600px', borderRadius: '15px' }}>
+                <div className="text-center mb-4">
+                    <FaCoffee size={40} className="text-primary mb-2" />
+                    <h2 className="text-dark">Join Sleepy Owl Coffee</h2>
+                    <p className="text-muted">Create your account to start your coffee journey</p>
+                </div>
 
+                <Form onSubmit={handleSubmit}>
+                    <Row>
+                        <Col md={6}>
+                            <Form.Group className="mb-3" controlId="formName">
+                                <Form.Label><FaUser className="me-2" />Full Name</Form.Label>
+                                <Form.Control 
+                                    type="text" 
+                                    name="name" 
+                                    placeholder="Enter your full name" 
+                                    onChange={handleInput} 
+                                    required 
+                                />
+                            </Form.Group>
+                        </Col>
+                        <Col md={6}>
+                            <Form.Group className="mb-3" controlId="formCity">
+                                <Form.Label><FaMapMarkerAlt className="me-2" />City</Form.Label>
+                                <Form.Control 
+                                    type="text" 
+                                    name="city" 
+                                    placeholder="Enter your city" 
+                                    onChange={handleInput} 
+                                    required 
+                                />
+                            </Form.Group>
+                        </Col>
+                    </Row>
 
+                    <Form.Group className="mb-3" controlId="formAddress">
+                        <Form.Label><FaHome className="me-2" />Address</Form.Label>
+                        <Form.Control 
+                            as="textarea" 
+                            rows={2} 
+                            name="address" 
+                            placeholder="Enter your full address" 
+                            onChange={handleInput} 
+                            required 
+                        />
+                    </Form.Group>
 
-      if (response.data.token) {
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('userId', response.data.userId);
-        alert('Registration successful!');
-        navigate('/home');
-      } else {
-        alert(response.data.msg || 'Registered, but no token returned.');
-      }
-    } catch (error) {
-      console.error("Axios Error:", error);
-      alert(error.response?.data?.msg || "Registration failed. Try again.");
-    }
-  };
+                    <Row>
+                        <Col md={6}>
+                            <Form.Group className="mb-3" controlId="formPincode">
+                                <Form.Label><FaMapMarkerAlt className="me-2" />Pin Code</Form.Label>
+                                <Form.Control 
+                                    type="number" 
+                                    name="pincode" 
+                                    placeholder="Enter pincode" 
+                                    onChange={handleInput} 
+                                    required 
+                                />
+                            </Form.Group>
+                        </Col>
+                        <Col md={6}>
+                            <Form.Group className="mb-3" controlId="formEmail">
+                                <Form.Label><FaEnvelope className="me-2" />Email</Form.Label>
+                                <Form.Control 
+                                    type="email" 
+                                    name="email" 
+                                    placeholder="Enter email" 
+                                    onChange={handleInput} 
+                                    required 
+                                />
+                            </Form.Group>
+                        </Col>
+                    </Row>
 
-  return (
-    <div className="registration-container">
-      <div className="registration-card">
-        <h2 className="text-center mb-4">☕ User Registration</h2>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group className="mb-3">
-            <Form.Label>Full Name</Form.Label>
-            <Form.Control type="text" name="name" value={input.name} onChange={handleInput} required placeholder="Enter your full name" />
-          </Form.Group>
+                    <Form.Group className="mb-4" controlId="formPassword">
+                        <Form.Label><FaLock className="me-2" />Password</Form.Label>
+                        <Form.Control 
+                            type="password" 
+                            name="password" 
+                            placeholder="Create password" 
+                            onChange={handleInput} 
+                            required 
+                        />
+                        <Form.Text className="text-muted">
+                            At least 8 characters with a mix of letters and numbers
+                        </Form.Text>
+                    </Form.Group>
 
-          <Form.Group className="mb-3">
-            <Form.Label>City</Form.Label>
-            <Form.Control type="text" name="city" value={input.city} onChange={handleInput} required placeholder="Enter your city" />
-          </Form.Group>
+                    <Button 
+                        variant="primary" 
+                        type="submit" 
+                        className="w-100 py-2 mb-3"
+                        style={{ borderRadius: '50px', fontWeight: '600' }}
+                    >
+                        Create Account
+                    </Button>
 
-          <Form.Group className="mb-3">
-            <Form.Label>Address</Form.Label>
-            <Form.Control type="text" name="address" value={input.address} onChange={handleInput} required placeholder="Enter your address" />
-          </Form.Group>
-
-          <Form.Group className="mb-3">
-            <Form.Label>Pincode</Form.Label>
-            <Form.Control type="number" name="pincode" value={input.pincode} onChange={handleInput} required placeholder="Enter your pincode" />
-          </Form.Group>
-
-          <Form.Group className="mb-3">
-            <Form.Label>Email</Form.Label>
-            <Form.Control type="email" name="email" value={input.email} onChange={handleInput} required placeholder="Enter your email" />
-          </Form.Group>
-
-          <Form.Group className="mb-4">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" name="password" value={input.password} onChange={handleInput} required placeholder="Create a password" />
-          </Form.Group>
-
-          <Button variant="dark" type="submit" className="w-100">
-            Register
-          </Button>
-        </Form>
-      </div>
-    </div>
-  );
+                    <div className="text-center">
+                        <p className="text-muted mb-0">
+                            Already have an account?{' '}
+                            <Button 
+                                variant="link" 
+                                className="p-0 text-decoration-none"
+                                onClick={() => navigate('/login')}
+                            >
+                                Sign in
+                            </Button>
+                        </p>
+                    </div>
+                </Form>
+            </Card>
+        </Container>
+    );
 };
 
 export default Registration;

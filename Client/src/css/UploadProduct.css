@@ -1,0 +1,41 @@
+.upload-form-wrapper {
+  max-width: 600px;
+  margin: 50px auto;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  font-family: 'Poppins', sans-serif;
+}
+
+.form-title {
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: 600;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.upload-form .form-label {
+  font-weight: 500;
+  color: #444;
+}
+
+.upload-form .form-control,
+.upload-form .form-select {
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 0.95rem;
+}
+
+.upload-form .form-control:focus,
+.upload-form .form-select:focus {
+  border-color: #343a40;
+  box-shadow: 0 0 0 0.15rem rgba(52, 58, 64, 0.25);
+}
+
+.upload-form .btn {
+  padding: 10px 20px;
+  font-weight: 500;
+  border-radius: 8px;
+}
