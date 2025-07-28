@@ -1,62 +1,94 @@
 const UserModel = require("../models/userModel");
 const bcrypt = require("bcryptjs");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
+const feedbackModel = require("../models/feedbackModel");
 
-
-const userSignUp=async(req, res)=>{
-    const { name, city, address, email, password, pincode} = req.body;
+const userSignUp = async (req, res) => {
+  try {
+    const { name, city, address, email, password, pincode } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
-    const User = await UserModel.create({
-      name:name,
-     city:city,
-     address:address,
-     pincode:pincode,
-     email:email,
-     password:hashedPassword
-    })
-    res.status(200).send({msg:"User Succesfully Registered!!!"});
-}
+    await UserModel.create({
+      name,
+      city,
+      address,
+      email,
+      password: hashedPassword,
+      pincode,
+    });
+    res.status(200).send({ msg: "User Successfully Registered!" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Registration failed");
+  }
+};
 
-const userLogin=async(req, res)=>{
+const userLogin = async (req, res) => {
+  try {
     const user = await UserModel.findOne({ email: req.body.email });
-    try{
-        const match = await bcrypt.compare(req.body.password, user.password);
+    if (!user) return res.status(400).json({ message: "Invalid Credentials" });
 
-        const accessToken = jwt.sign(JSON.stringify(user), process.env.TOKEN_SECRET)
-        if(match){
-            res.json({ accessToken: accessToken });
-        } else {
-            res.json({ message: "Invalid Credentials" });
-        }
-    } catch(e) {
-        console.log(e)
-    }
-}
+    const match = await bcrypt.compare(req.body.password, user.password);
+    if (!match) return res.status(400).json({ message: "Invalid Credentials" });
 
+    // ✅ Only sign the _id
+    const accessToken = jwt.sign(
+      { _id: user._id },
+      process.env.TOKEN_SECRET,
+      { expiresIn: "7d" } // optional
+    );
 
-const userAuth=async(req, res)=>{
-    const token = req.header("x-auth-token");
-     if (!token) return res.json(false);
-  const verified = jwt.verify(token, process.env.TOKEN_SECRET);
-  console.log(verified);
+    res.json({ accessToken });
+  } catch (e) {
+    console.error(e);
+    res.status(500).send("Login error");
+  }
+};
 
-  if (!verified) return res.json(false);
-  const user = await UserModel.findById(verified._id);
+const userAuth = async (req, res) => {
+  const token = req.header("x-auth-token");
+  if (!token) return res.status(401).json({ message: "No token, access denied" });
 
-  if (!user) return res.json(false);
+  try {
+    const verified = jwt.verify(token, process.env.TOKEN_SECRET);
+    const user = await UserModel.findById(verified._id).select("-password");
+    if (!user) return res.status(404).json({ message: "User not found" });
 
     return res.json(user);
-}
+  } catch (err) {
+    console.error("Auth error:", err);
+    return res.status(401).json({ message: "Token verification failed" });
+  }
+};
 
-const getUser=async(req, res)=>{
-     const User= await UserModel.findById(req.query.userid);
-     console.log(User);
-     res.send(User);
-}
+const getUser = async (req, res) => {
+  try {
+    const user = await UserModel.findById(req.query.userid).select("-password");
+    res.send(user);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error fetching user");
+  }
+};
 
-module.exports={
-    userSignUp,
-    userLogin,
-    userAuth,
-    getUser
-}
+
+const feedback = async (req, res) => {
+  const {name,email,message} = req.body;
+  try {
+    const response = await feedbackModel.create({
+      name,
+      email,
+      message,
+    });
+    res.status(200).send("Feedback send sucessfully");
+  } catch (err) {
+    res.status(500).send("Error saving feedback: " + err.message);
+  }
+};
+
+module.exports = {
+  userSignUp,
+  userLogin,
+  userAuth,
+  getUser,
+  feedback
+};

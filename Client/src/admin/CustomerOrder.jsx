@@ -9,14 +9,16 @@ import "../css/CustomerOrder.css"; // optional custom styles
 const CustomerOrder = () => {
   const [mydata, setMydata] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const loadData = async () => {
     try {
       const api = `${BackEndUrl}/admin/ourorder`;
       const response = await axios.get(api);
       setMydata(response.data);
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.error("Failed to fetch orders:", err);
+      setError("Something went wrong while fetching orders.");
     } finally {
       setLoading(false);
     }
@@ -34,6 +36,10 @@ const CustomerOrder = () => {
         <div className="text-center my-5">
           <Spinner animation="border" role="status" />
         </div>
+      ) : error ? (
+        <Alert variant="danger" className="text-center">
+          {error}
+        </Alert>
       ) : mydata.length === 0 ? (
         <Alert variant="info" className="text-center">
           No orders found!
@@ -53,24 +59,23 @@ const CustomerOrder = () => {
             </tr>
           </thead>
           <tbody>
-            {mydata.map((order, index) => (
-              <tr key={order._id}>
-                <td>{index + 1}</td>
-                <td>
-                  {order.products?.map((prod, i) => (
-                    <div key={i}>
-                      {prod.name} x {prod.qnty}
-                    </div>
-                  ))}
-                </td>
-                <td>{order.amount}</td>
-                <td>{order.clientname}</td>
-                <td>{order.city}</td>
-                <td>{order.address}</td>
-                <td>{order.pincode}</td>
-                <td>{order.email}</td>
-              </tr>
-            ))}
+           {mydata.map((order, index) => {
+  
+
+  return (
+    <tr key={order._id || index}>
+      <td>{index + 1}</td>
+       <td>₹{order.products}</td>
+      <td>₹{order.amount}</td>
+      <td>{order.clientname}</td>
+      <td>{order.city}</td>
+      <td>{order.address}</td>
+      <td>{order.pincode}</td>
+      <td>{order.email}</td>
+    </tr>
+  );
+})}
+
           </tbody>
         </Table>
       )}

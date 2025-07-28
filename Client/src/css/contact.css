@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap');
+
+.contact-container {
+  background-color: #ffffff;
+  color: #000000;
+  font-family: 'Inter', sans-serif;
+  padding: 80px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.contact-wrapper {
+  max-width: 700px;
+  width: 100%;
+  background: #fff;
+  padding: 60px;
+  border-radius: 12px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.03);
+}
+
+.contact-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 42px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.contact-subheading {
+  font-size: 18px;
+  margin-bottom: 40px;
+  text-align: center;
+  color: #333;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.contact-form label {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 14px;
+  border: 1px solid #000;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: #f9f9f9;
+  color: #000;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: #111;
+  background-color: #fff;
+}
+
+.contact-form button {
+  padding: 16px;
+  background-color: #000;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.contact-form button:hover {
+  background-color: #333;
+}

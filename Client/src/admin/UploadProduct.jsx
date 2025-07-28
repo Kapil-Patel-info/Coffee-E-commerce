@@ -34,10 +34,13 @@ const UploadProduct = () => {
       const api = `${BackEndUrl}/admin/productsave`;
       const response = await axios.post(api, formData);
       alert("Product Saved!");
+      setInput({});
       console.log(response);
     } catch (error) {
       console.error("Upload failed:", error);
     }
+
+    
   };
 
   return (

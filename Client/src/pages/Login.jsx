@@ -17,8 +17,8 @@ const Login = () => {
             const response = await axios.post(api, { email, password });
             console.log(response);
             localStorage.setItem("token", response.data.accessToken);
-            // Redirect after successful login
-            navigate("/"); // or wherever you want to redirect
+
+            navigate("/"); 
         } catch (error) {
             console.error("Login error:", error);
             // Add error handling/display here

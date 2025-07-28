@@ -2,11 +2,16 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import BackEndUrl from "../config/BackEndUrl";
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Carousel from "react-bootstrap/Carousel";
 import { useDispatch } from "react-redux";
 import { addtoCart } from "../cartSlice";
-import '../css/Home.css'; // Ensure you have the styles here
+import "../css/Home.css";
+
+ import img4 from "../../public/four.png"; // Replace with coffee-related images
+import img2 from "../../public/two.png";
+import img3 from "../../public/three.png";
 
 const Home = () => {
   const [mydata, setMydata] = useState([]);
@@ -18,7 +23,7 @@ const Home = () => {
       const response = await axios.get(`${BackEndUrl}/product/homedisplay`);
       setMydata(response.data);
     } catch (error) {
-      console.error(error);
+      console.error("Error loading products:", error);
     }
   };
 
@@ -29,6 +34,7 @@ const Home = () => {
         const { data } = await axios.post(`${BackEndUrl}/user/authuser`, null, {
           headers: { "x-auth-token": token },
         });
+
         if (data) {
           localStorage.setItem("userValid", true);
           localStorage.setItem("username", data.name);
@@ -36,7 +42,8 @@ const Home = () => {
           localStorage.setItem("userid", data._id);
         }
       } catch (error) {
-        console.error("Auth failed:", error);
+        localStorage.removeItem("token");
+        localStorage.removeItem("userValid");
       }
     }
   };
@@ -48,7 +55,20 @@ const Home = () => {
 
   return (
     <div className="home-wrapper">
-      <h2 className="section-title">Our Premium Products</h2>
+      <Carousel>
+        <Carousel.Item>
+          <img src={img4} alt="coffee banner 1" width="100%" height="100%" />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img src={img2} alt="coffee banner 2" width="100%" height="100%" />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img src={img3} alt="coffee banner 3" width="100%" height="100%" />
+        </Carousel.Item>
+      </Carousel>
+
+      <div className="section-title">Our Coffee Collection</div>
+
       <div className="product-grid">
         {mydata.map((product) => (
           <Card className="product-card" key={product._id}>
@@ -57,17 +77,16 @@ const Home = () => {
               src={product.defaultImage}
               alt={product.name}
               className="product-image"
+              
               onClick={() => navigate(`/productdisplay/${product._id}`)}
             />
             <Card.Body>
               <Card.Title>{product.name}</Card.Title>
               <Card.Text>
-                <small>{product.description.slice(0, 60)}...</small>
-                <br />
-                <strong>Category:</strong> {product.category}
-                <br />
-                <h5 className="mt-2 text-success">₹{product.price}</h5>
+                <small>{product.description.slice(0, 60)}...</small><br />
+                <strong>Type:</strong> {product.category}
               </Card.Text>
+              <h5 className="text-success">₹{product.price}</h5>
               <Button
                 variant="dark"
                 onClick={() =>

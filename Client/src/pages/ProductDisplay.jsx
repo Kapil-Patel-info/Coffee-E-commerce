@@ -3,12 +3,15 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import BackEndUrl from "../config/BackEndUrl";
 import "../css/ProductDisplay.css"; // You’ll create this
-
+import { useDispatch } from "react-redux";
+import Button from 'react-bootstrap/Button';
+import { addtoCart } from "../cartSlice";
 const ProductDisplay = () => {
   const { id } = useParams();
   const [mydata, setMydata] = useState({});
   const [imglist, setimgList] = useState([]);
   const [DefaultImage, SetDefaultImage] = useState("");
+   const dispatch = useDispatch();
 
   const loadData = async () => {
     try {
@@ -63,7 +66,26 @@ const ProductDisplay = () => {
             Use code <strong>NEWJAR20</strong> at checkout to get extra 20% OFF
           </div>
 
-          <button className="add-to-cart">Add to Cart</button>
+             <Button
+  variant="dark"
+  onClick={() =>
+    dispatch(
+      addtoCart({
+        id: mydata._id,
+        name: mydata.name,
+        description: mydata.description,
+        price: mydata.price,
+        category: mydata.category,
+        images: mydata.images,
+        defaultImage: mydata.defaultImage,
+        qnty: 1,
+      })
+    )
+  }
+>
+  Add to Cart
+</Button>
+
         </div>
       </div>
 

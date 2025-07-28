@@ -3,9 +3,8 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { FaShoppingCart, FaSearch } from "react-icons/fa";
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import "../css/Header.css"
+import { useNavigate, Link } from 'react-router-dom';
+import "../css/Header.css";
 
 const Header = () => {
     const cartData = useSelector(state => state.mycart.cart);
@@ -14,31 +13,40 @@ const Header = () => {
 
     const logout = () => {
         localStorage.clear();
-        navigate('/login'); // Redirect to login after logout
+        navigate('/login');
     }
 
     return (
         <>
-            <Navbar bg="light" expand="lg" className="custom-navbar">
-                <Container>
-                    <Navbar.Brand as={Link} to="/home" className="navbar-brand">SLEEPY OWL COFFEE</Navbar.Brand>
-                    <Nav className="me-auto">
-                        <Nav.Link as={Link} to="shop" className="nav-link">SHOP</Nav.Link>
-                        <Nav.Link as={Link} to="instant-coffee" className="nav-link">INSTANT COFFEE</Nav.Link>
-                        <Nav.Link as={Link} to="bestsellers" className="nav-link">BESTSELLERS</Nav.Link>
-                        <Nav.Link as={Link} to="bulk-orders" className="nav-link">BULK ORDERS</Nav.Link>
-                    </Nav>
-                    <div className="navbar-icons">
-                        <span className="username">Welcome {localStorage.getItem("username")}</span>
-                        <span className="logout" onClick={logout}>Logout</span>
-                        <FaSearch className='search-icon' />
-                        <span className='itemcount'>{cartLength}</span>
-                        <FaShoppingCart className='carticon' onClick={() => navigate("/cartdata")} />
-                    </div>
+            <Navbar expand="lg" className="custom-navbar fixed-top">
+                <Container className="justify-content-between">
+                    <Navbar.Brand as={Link} to="/home" className="brand-logo">SLEEPY OWL COFFEE</Navbar.Brand>
+                    <Navbar.Toggle />
+                    <Navbar.Collapse>
+                        <Nav className="mx-auto nav-center">
+                            <Nav.Link as={Link} to="/home">Home</Nav.Link>
+                            <Nav.Link as={Link} to="/orders">Orders</Nav.Link>
+                            {/* <Nav.Link as={Link} to="/products">Products</Nav.Link> */}
+                            <Nav.Link as={Link} to="/about">About</Nav.Link>
+                            <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
+                        </Nav>
+                        <Nav className="navbar-icons ms-auto">
+                            <FaSearch className='search-icon' />
+                            <div className="cart-wrapper" onClick={() => navigate("/cartdata")}>
+                                <FaShoppingCart className='carticon' />
+                                {cartLength > 0 && (
+                                    <span className='itemcount'>{cartLength}</span>
+                                )}
+                            </div>
+                            <span className="username">Hi, {localStorage.getItem("username")}</span>
+                            <span className="logout" onClick={logout}>Logout</span>
+                        </Nav>
+                    </Navbar.Collapse>
                 </Container>
             </Navbar>
+            <br /><br /><br />
         </>
     );
-}
+};
 
 export default Header;

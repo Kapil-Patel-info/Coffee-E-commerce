@@ -7,6 +7,7 @@ route.post("/registration", UserController.userSignUp);
 route.post("/login", UserController.userLogin);
 route.post("/authuser", UserController.userAuth);
 route.get("/getuser", UserController.getUser);
+route.post("/feedback",UserController.feedback);
 
 
 module.exports=route;

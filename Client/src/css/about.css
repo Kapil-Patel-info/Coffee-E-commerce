@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap');
+
+.about-container {
+  background-color: #ffffff;
+  color: #000000;
+  font-family: 'Inter', sans-serif;
+  padding: 100px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.about-wrapper {
+  max-width: 800px;
+  padding: 60px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.03);
+}
+
+.about-heading {
+  font-family: 'Playfair Display', serif;
+  font-size: 44px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.about-subheading {
+  font-size: 20px;
+  margin-bottom: 40px;
+  text-align: center;
+  color: #333;
+}
+
+.about-text {
+  font-size: 18px;
+  line-height: 1.8;
+  margin-bottom: 30px;
+  color: #222;
+}
