@@ -48,6 +48,7 @@ const ProductDisplay = () => {
           <h1>{mydata.name}</h1>
           <div className="rating">⭐ {mydata.rating || "4.3"} (1,203 reviews)</div>
           <p className="description">{mydata.description}</p>
+          <p><b>Category</b>: {mydata.category}</p>
 
           <div className="features">
             <div className="feature">✅ 100% Arabica</div>

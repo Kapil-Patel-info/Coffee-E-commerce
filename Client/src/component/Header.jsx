@@ -31,7 +31,8 @@ const Header = () => {
                             <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
                         </Nav>
                         <Nav className="navbar-icons ms-auto">
-                            <FaSearch className='search-icon' />
+                           
+                             <Nav.Link as={Link} to="/search"> <FaSearch className='search-icon' /></Nav.Link>
                             <div className="cart-wrapper" onClick={() => navigate("/cartdata")}>
                                 <FaShoppingCart className='carticon' />
                                 {cartLength > 0 && (

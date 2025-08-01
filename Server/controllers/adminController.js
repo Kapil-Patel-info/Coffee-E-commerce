@@ -37,6 +37,7 @@ const productSave = async (req, res) => {
         images: imageUrls,
         defaultImage: imageUrls[0],
       });
+      
       res.status(200).send("Data saved successfully!");
     } catch (error) {
       res.status(500).send("Error saving data: " + error.message);

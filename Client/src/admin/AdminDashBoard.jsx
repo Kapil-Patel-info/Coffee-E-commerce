@@ -54,15 +54,13 @@ const AdminDashboard = () => {
             <Nav.Link as={Link} to="showProducts" className="nav-link-custom">
               <FaCoffee className="me-2" /> Manage Products
             </Nav.Link>
-            <Nav.Link as={Link} to="edit" className="nav-link-custom">
+            <Nav.Link as={Link} to="manageCustomers" className="nav-link-custom">
               <FaUsers className="me-2" /> Customer Management
             </Nav.Link>
             <Nav.Link as={Link} to="feedback" className="nav-link-custom">
               <FaChartLine className="me-2" /> Customer Feedback
             </Nav.Link>
-            <Nav.Link as={Link} to="settings" className="nav-link-custom">
-              <FaCog className="me-2" /> Settings
-            </Nav.Link>
+
           </Nav>
         </nav>
 

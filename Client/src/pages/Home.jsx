@@ -9,9 +9,12 @@ import { useDispatch } from "react-redux";
 import { addtoCart } from "../cartSlice";
 import "../css/Home.css";
 
- import img4 from "../../public/four.png"; // Replace with coffee-related images
+import img4 from "../../public/four.png";
 import img2 from "../../public/two.png";
 import img3 from "../../public/three.png";
+import upparBar from "../../public/upperBar.png";
+import footerimg from "../../public/footerimg.png";
+import lowerBar from "../../public/lowerBar.png";
 
 const Home = () => {
   const [mydata, setMydata] = useState([]);
@@ -41,7 +44,7 @@ const Home = () => {
           localStorage.setItem("useremail", data.email);
           localStorage.setItem("userid", data._id);
         }
-      } catch (error) {
+       } catch (error) {
         localStorage.removeItem("token");
         localStorage.removeItem("userValid");
       }
@@ -67,23 +70,30 @@ const Home = () => {
         </Carousel.Item>
       </Carousel>
 
+      {/* //bar image  */}
+
+      <div className="upperbar">
+        <img src={upparBar} width="100%" alt="upperbar" />
+      </div>
+
       <div className="section-title">Our Coffee Collection</div>
 
-      <div className="product-grid">
+      <div className="product-grid m-5">
         {mydata.map((product) => (
           <Card className="product-card" key={product._id}>
             <Card.Img
               variant="top"
               src={product.defaultImage}
               alt={product.name}
+              style={{ cursor: "pointer" }}
               className="product-image"
-              
               onClick={() => navigate(`/productdisplay/${product._id}`)}
             />
             <Card.Body>
               <Card.Title>{product.name}</Card.Title>
               <Card.Text>
-                <small>{product.description.slice(0, 60)}...</small><br />
+                <small>{product.description}...</small>
+                <br />
                 <strong>Type:</strong> {product.category}
               </Card.Text>
               <h5 className="text-success">₹{product.price}</h5>
@@ -109,6 +119,16 @@ const Home = () => {
             </Card.Body>
           </Card>
         ))}
+      </div>
+
+      {/* //lower bar  */}
+
+      <div className="lowerbar">
+        <img src={lowerBar} width="100%" alt="lowerbar" />
+      </div>
+
+      <div className="footerimg">
+        <img src={footerimg} width="100%" alt="footerimg" />
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ const UserModel = require("../models/userModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const feedbackModel = require("../models/feedbackModel");
+const userModel = require("../models/userModel");
 
 const userSignUp = async (req, res) => {
   try {
@@ -85,10 +86,22 @@ const feedback = async (req, res) => {
   }
 };
 
+
+
+const allUsers = async(req,res)=>{
+
+const response = await userModel.find();
+
+res.send(response);
+
+}
+
+
 module.exports = {
   userSignUp,
   userLogin,
   userAuth,
   getUser,
-  feedback
+  feedback,
+  allUsers
 };

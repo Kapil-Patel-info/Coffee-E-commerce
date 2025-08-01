@@ -76,7 +76,7 @@
 .carousel img {
   max-height: 500px;
   object-fit: cover;
-  border-radius: 10px;
+  /* border-radius: 10px; */
 }
 
 /* Responsive adjustments */
@@ -110,5 +110,23 @@
 
 
 .product-image{
-  height: 200px !important;
+  height: 400px !important;
 }
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns */
+  gap: 20px;
+  padding: 20px;
+}
+
+.product-card {
+  width: 100%;
+}
+
+/* .product-grid{
+  margin: 0 60px 0 60px 0 !important;
+} */
+
+
+

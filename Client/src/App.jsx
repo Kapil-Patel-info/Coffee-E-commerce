@@ -16,7 +16,8 @@ import ShowProducts from "./admin/ShowProducts";
 import About  from "./pages/About";
 import Contact from "./pages/Contact";
 import CustomerFeedback from "./admin/CustomerFeedback";
-
+import ManageCustomers from "./admin/ManageCustomers";
+import Search from "./pages/Search";
 
 
 
@@ -37,6 +38,7 @@ const App=()=>{
            <Route  path="orders" element={<Orders/>}/>
            <Route path="about" element={<About/>} />
            <Route path="contact" element={<Contact/>}/>
+           <Route path="search" element={<Search/>}/>
           </Route>
          </Routes>
         
@@ -50,6 +52,7 @@ const App=()=>{
              <Route path="edit" element ={<Edit/>} />
              <Route  path="showProducts" element={<ShowProducts/>}/>
               <Route  path="feedback" element={<CustomerFeedback/>}/>
+              <Route  path="manageCustomers" element={<ManageCustomers/>}/>
 
 
              </Route>
