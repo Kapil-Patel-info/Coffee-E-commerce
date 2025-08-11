@@ -4,6 +4,8 @@ import { FaCoffee, FaUser, FaMapMarkerAlt, FaEnvelope, FaLock, FaHome } from 're
 import axios from 'axios';
 import BackEndUrl from '../config/BackEndUrl';
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Registration = () => {
     const navigate = useNavigate();
@@ -26,12 +28,16 @@ const Registration = () => {
         try {
             const api = `${BackEndUrl}/user/registration`;
             const response = await axios.post(api, input);
-            console.log(response.data);
-            alert("You are successfully registered!");
-            navigate('/login'); // Redirect to login after registration
+
+            toast.success("You are successfully registered! Redirecting to home...", { position: "top-right" });
+
+            setTimeout(() => {
+                navigate('/');
+            }, 1500);
         } catch (error) {
             console.error("Registration error:", error);
-            alert("Registration failed. Please try again.");
+            const errorMessage = error.response?.data?.message || "Registration failed. Please try again.";
+            toast.error(errorMessage, { position: "top-right" });
         }
     };
 
@@ -148,6 +154,8 @@ const Registration = () => {
                     </div>
                 </Form>
             </Card>
+
+            <ToastContainer autoClose={2000} />
         </Container>
     );
 };

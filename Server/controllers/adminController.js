@@ -75,9 +75,32 @@ res.status(200).send(response);
 
 };
 
+
+const deleteProduct = async (req, res) => {
+  try {
+    const { id } = req.query; // get ID from query string
+
+    if (!id) {
+      return res.status(400).send({ msg: "Product ID is required" });
+    }
+
+    const deletedProduct = await ProductModel.findByIdAndDelete(id);
+
+    if (!deletedProduct) {
+      return res.status(404).send({ msg: "Product not found" });
+    }
+
+    res.status(200).send({ msg: "Product deleted successfully" });
+  } catch (error) {
+    res.status(500).send({ msg: "Error deleting product", error: error.message });
+  }
+};
+
+
 module.exports = {
   adminLogin,
   productSave,
   ourOrder,
-  getFeedback
+  getFeedback,
+  deleteProduct
 };

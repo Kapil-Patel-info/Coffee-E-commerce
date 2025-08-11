@@ -1,6 +1,6 @@
 
 import { createRoot } from 'react-dom/client'
-
+import 'react-notifications/lib/notifications.css';
 import App from './App.jsx'
 import 'bootstrap/dist/css/bootstrap.min.css';
 

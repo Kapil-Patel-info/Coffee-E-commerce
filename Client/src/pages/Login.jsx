@@ -4,6 +4,8 @@ import axios from 'axios';
 import BackEndUrl from '../config/BackEndUrl';
 import { FaCoffee } from 'react-icons/fa';
 import { Container, Form, Button, Row, Col, Card } from 'react-bootstrap';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -15,13 +17,24 @@ const Login = () => {
         try {
             const api = `${BackEndUrl}/user/login`;
             const response = await axios.post(api, { email, password });
-            console.log(response);
+
+            // Save token
             localStorage.setItem("token", response.data.accessToken);
 
-            navigate("/"); 
+            // Success toast
+            toast.success("Login successful! Redirecting...", { position: "top-right" });
+
+            // Redirect after short delay so toast is visible
+            setTimeout(() => {
+                navigate("/");
+            }, 1500);
+
         } catch (error) {
             console.error("Login error:", error);
-            // Add error handling/display here
+
+            // If API sends message, show it; else generic error
+            const errorMessage = error.response?.data?.message || "Invalid email or password!";
+            toast.error(errorMessage, { position: "top-right" });
         }
     };
 
@@ -77,12 +90,15 @@ const Login = () => {
                                 className="text-decoration-none p-0"
                                 onClick={() => navigate("/forgot-password")}
                             >
-                                Forgot password
+                                
                             </Button>
                         </Col>
                     </Row>
                 </Form>
             </Card>
+
+            {/* Toast container */}
+            <ToastContainer autoClose={2000} />
         </Container>
     );
 };

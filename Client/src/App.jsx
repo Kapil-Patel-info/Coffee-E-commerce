@@ -18,6 +18,7 @@ import Contact from "./pages/Contact";
 import CustomerFeedback from "./admin/CustomerFeedback";
 import ManageCustomers from "./admin/ManageCustomers";
 import Search from "./pages/Search";
+import { ToastContainer } from 'react-toastify';
 
 
 
@@ -57,7 +58,7 @@ const App=()=>{
 
              </Route>
          </Routes>
-
+ <ToastContainer autoClose={2000} />
        </BrowserRouter>
     </>
   )

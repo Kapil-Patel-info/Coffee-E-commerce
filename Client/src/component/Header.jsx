@@ -5,6 +5,8 @@ import { FaShoppingCart, FaSearch } from "react-icons/fa";
 import { useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import "../css/Header.css";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Header = () => {
     const cartData = useSelector(state => state.mycart.cart);
@@ -13,6 +15,7 @@ const Header = () => {
 
     const logout = () => {
         localStorage.clear();
+        toast.info("User Logedout!", { position: "top-right" });
         navigate('/login');
     }
 
@@ -40,7 +43,8 @@ const Header = () => {
                                 )}
                             </div>
                             <span className="username">Hi, {localStorage.getItem("username")}</span>
-                            <span className="logout" onClick={logout}>Logout</span>
+                            <span className="logout" onClick={logout} >Logout</span>
+                            
                         </Nav>
                     </Navbar.Collapse>
                 </Container>
