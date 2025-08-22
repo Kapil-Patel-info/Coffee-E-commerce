@@ -13,8 +13,7 @@ import { FaLock, FaUserShield, FaCoffee } from "react-icons/fa";
 import axios from "axios";
 import BackEndUrl from "../config/BackEndUrl";
 import { useNavigate } from "react-router-dom";
-import "../css/AdminLogin.css"; // Create this CSS file for custom styles
-
+import "../css/AdminLogin.css"; 
 const AdminLogin = () => {
   const [adminid, setAdminid] = useState("");
   const [password, setPassword] = useState("");
