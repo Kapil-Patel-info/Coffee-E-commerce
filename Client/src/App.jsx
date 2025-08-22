@@ -1,7 +1,7 @@
 import  {BrowserRouter, Routes, Route} from "react-router-dom";
 import Layout from "./Layout";
 import Home from "./pages/Home";
-import AdminLogin from "./admin/adminlogin";
+import AdminLogin from "./admin/Adminlogin";
 import AdminDashBoard from "./admin/AdminDashBoard";
 import UploadProduct from "./admin/UploadProduct";
 import CartData from "./CartData";
