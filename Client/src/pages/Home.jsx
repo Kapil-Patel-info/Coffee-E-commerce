@@ -10,12 +10,12 @@ import { useDispatch } from "react-redux";
 import { addtoCart } from "../cartSlice";
 import "../css/Home.css";
 
-import img4 from "../images/four.png";
-import img2 from "../images/two.png";
-import img3 from "../images/three.png";
-import upparBar from "../images/upperBar.png";
-import footerimg from "../images/footerimg.png";
-import lowerBar from "../images/lowerBar.png";
+import img4 from "../Images/four.png";
+import img2 from "../Images/two.png";
+import img3 from "../Images/three.png";
+import upparBar from "../Images/upperBar.png";
+import footerimg from "../Images/footerimg.png";
+import lowerBar from "../Images/lowerBar.png";
 
 const Home = () => {
   const [mydata, setMydata] = useState([]);
