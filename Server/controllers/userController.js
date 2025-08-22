@@ -31,14 +31,20 @@ const userLogin = async (req, res) => {
     const match = await bcrypt.compare(req.body.password, user.password);
     if (!match) return res.status(400).json({ message: "Invalid Credentials" });
 
-    // ✅ Only sign the _id
+    // ✅ Create token
     const accessToken = jwt.sign(
       { _id: user._id },
       process.env.TOKEN_SECRET,
-      { expiresIn: "7d" } // optional
+      { expiresIn: "7d" }
     );
 
-    res.json({ accessToken });
+    // ✅ Send token + username + email
+    res.json({
+      accessToken,
+      username: user.name,
+      email: user.email
+    });
+
   } catch (e) {
     console.error(e);
     res.status(500).send("Login error");
@@ -71,31 +77,29 @@ const getUser = async (req, res) => {
   }
 };
 
-
 const feedback = async (req, res) => {
-  const {name,email,message} = req.body;
+  const { name, email, message } = req.body;
   try {
-    const response = await feedbackModel.create({
+    await feedbackModel.create({
       name,
       email,
       message,
     });
-    res.status(200).send("Feedback send sucessfully");
+    res.status(200).send("Feedback sent successfully");
   } catch (err) {
     res.status(500).send("Error saving feedback: " + err.message);
   }
 };
 
-
-
-const allUsers = async(req,res)=>{
-
-const response = await userModel.find();
-
-res.send(response);
-
-}
-
+const allUsers = async (req, res) => {
+  try {
+    const response = await userModel.find().select("-password");
+    res.send(response);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error fetching users");
+  }
+};
 
 module.exports = {
   userSignUp,

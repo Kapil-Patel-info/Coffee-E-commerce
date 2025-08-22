@@ -8,12 +8,12 @@ const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const cloudinary = require("../cloudinary");
 
 
-// Set up Cloudinary storage for multer
+
 const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
-    folder: "myphotos", // folder name Cloudinary account
-    format: async (req, file) => "jpg", // supports promises as well
+    folder: "myphotos", 
+    format: async (req, file) => "jpg",
     public_id: (req, file) => Date.now() + "-" + file.originalname,
   },
 });

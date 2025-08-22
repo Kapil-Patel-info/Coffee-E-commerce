@@ -14,7 +14,7 @@ const UploadProduct = () => {
   });
 
   const [selectedImages, setSelectedImages] = useState("");
-  const fileInputRef = useRef(null); // 👈 for clearing file input
+  const fileInputRef = useRef(null);
 
   const handleInput = (e) => {
     const { name, value } = e.target;

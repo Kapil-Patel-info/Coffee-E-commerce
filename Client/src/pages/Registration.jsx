@@ -29,11 +29,16 @@ const Registration = () => {
             const api = `${BackEndUrl}/user/registration`;
             const response = await axios.post(api, input);
 
+            // ✅ Save username immediately
+            localStorage.setItem("username", input.name);
+            window.dispatchEvent(new Event("userChange"));
+
             toast.success("You are successfully registered! Redirecting to home...", { position: "top-right" });
 
             setTimeout(() => {
                 navigate('/');
             }, 1500);
+
         } catch (error) {
             console.error("Registration error:", error);
             const errorMessage = error.response?.data?.message || "Registration failed. Please try again.";

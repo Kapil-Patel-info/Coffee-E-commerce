@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -13,38 +14,62 @@ const Header = () => {
     const cartLength = cartData.length;
     const navigate = useNavigate();
 
+    const [username, setUsername] = useState(localStorage.getItem("username"));
+   
+
+    useEffect(() => {
+        const updateUser = () => {
+            setUsername(localStorage.getItem("username"));
+        };
+
+        window.addEventListener("userChange", updateUser);
+        return () => window.removeEventListener("userChange", updateUser);
+    }, []);
+
     const logout = () => {
         localStorage.clear();
-        toast.info("User Logedout!", { position: "top-right" });
+        setUsername(null);
+        toast.info("User Logged out!", { position: "top-right" });
+        window.dispatchEvent(new Event("userChange")); // trigger update
         navigate('/login');
-    }
+    };
 
     return (
         <>
             <Navbar expand="lg" className="custom-navbar fixed-top">
                 <Container className="justify-content-between">
-                    <Navbar.Brand as={Link} to="/home" className="brand-logo">SLEEPY OWL COFFEE</Navbar.Brand>
+                    <Navbar.Brand as={Link} to="/home" className="brand-logo">
+                        SLEEPY OWL COFFEE
+                    </Navbar.Brand>
                     <Navbar.Toggle />
                     <Navbar.Collapse>
                         <Nav className="mx-auto nav-center">
                             <Nav.Link as={Link} to="/home">Home</Nav.Link>
                             <Nav.Link as={Link} to="/orders">Orders</Nav.Link>
-                            {/* <Nav.Link as={Link} to="/products">Products</Nav.Link> */}
                             <Nav.Link as={Link} to="/about">About</Nav.Link>
                             <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
                         </Nav>
                         <Nav className="navbar-icons ms-auto">
-                           
-                             <Nav.Link as={Link} to="/search"> <FaSearch className='search-icon' /></Nav.Link>
+                            <Nav.Link as={Link} to="/search">
+                                <FaSearch className='search-icon' />
+                            </Nav.Link>
                             <div className="cart-wrapper" onClick={() => navigate("/cartdata")}>
                                 <FaShoppingCart className='carticon' />
                                 {cartLength > 0 && (
                                     <span className='itemcount'>{cartLength}</span>
                                 )}
                             </div>
-                            <span className="username">Hi, {localStorage.getItem("username")}</span>
-                            <span className="logout" onClick={logout} >Logout</span>
-                            
+
+                            {username ? (
+                                <>
+                                    <span className="username">Hi, {username}</span>
+                                    <span className="logout" onClick={logout}>Logout</span>
+                                </>
+                            ) : (
+                                <Nav.Link as={Link} to="/login" className="login-btn">
+                                    Login
+                                </Nav.Link>
+                            )}
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

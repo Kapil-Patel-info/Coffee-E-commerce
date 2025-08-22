@@ -44,10 +44,9 @@ const App=()=>{
          </Routes>
         
          <Routes>
+          
              <Route path="/admindashboard" element={<AdminDashBoard/>}>
-              
             <Route  index element={<CustomerFeedback/>}/>
-
              <Route path="uploadproduct" element={<UploadProduct/>} />
              <Route path="customerorder" element={<CustomerOrder/>}/> 
              <Route path="edit" element ={<Edit/>} />
