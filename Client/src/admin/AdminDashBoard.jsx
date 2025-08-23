@@ -10,6 +10,7 @@ import {
   FaCog,
 } from "react-icons/fa";
 
+
 const AdminDashboard = () => {
   const navigate = useNavigate();
   const adminId = localStorage.getItem("adminid");

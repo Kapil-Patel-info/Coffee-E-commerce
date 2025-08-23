@@ -1,7 +1,7 @@
 import  {BrowserRouter, Routes, Route} from "react-router-dom";
 import Layout from "./Layout";
 import Home from "./pages/Home";
-import AdminLogin from "./admin/Adminlogin";
+import AdminLogin from "./admin/AdminLogin";
 import AdminDashBoard from "./admin/AdminDashBoard";
 import UploadProduct from "./admin/UploadProduct";
 import CartData from "./CartData";
@@ -10,7 +10,7 @@ import Registration from "./pages/Registration";
 import CheckOut from "./pages/CheckOut";
 import CustomerOrder from "./admin/CustomerOrder";
 import ProductDisplay from "./pages/ProductDisplay";
-import Orders from "./pages/Orders";
+// import Orders from "./pages/Orders";
 import Edit from "./admin/Edit";
 import ShowProducts from "./admin/ShowProducts";
 import About  from "./pages/About";
@@ -36,7 +36,7 @@ const App=()=>{
            <Route path="cartdata" element={<CartData/>}/>
            <Route path="checkout" element={<CheckOut/>} />
            <Route path="productdisplay/:id" element={<ProductDisplay/>}/>
-           <Route  path="orders" element={<Orders/>}/>
+           {/* <Route  path="orders" element={<Orders/>}/> */}
            <Route path="about" element={<About/>} />
            <Route path="contact" element={<Contact/>}/>
            <Route path="search" element={<Search/>}/>
