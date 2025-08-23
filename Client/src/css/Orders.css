@@ -75,3 +75,92 @@
     padding: 14px 16px;
   }
 }
+.orders-container {
+  padding: 20px;
+}
+
+.orders-title {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.loading-text {
+  text-align: center;
+  color: #555;
+}
+
+/* Make table scrollable on mobile */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  background: #fff;
+}
+
+.orders-table th,
+.orders-table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.orders-table th {
+  background-color: #3A59D1;
+  color: white;
+}
+
+.products-cell {
+  text-align: left;
+}
+
+.product-item {
+  margin: 2px 0;
+  font-size: 0.9rem;
+}
+
+/* Status badges */
+.status-badge {
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: white;
+}
+.status-badge.paid {
+  background-color: #28a745;
+}
+.status-badge.pending {
+  background-color: #ffc107;
+  color: #333;
+}
+.status-badge.failed {
+  background-color: #dc3545;
+}
+
+/* Mobile view adjustments */
+@media (max-width: 768px) {
+  .orders-title {
+    font-size: 1.4rem;
+  }
+  .orders-table th,
+  .orders-table td {
+    padding: 8px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .orders-container {
+    padding: 10px;
+  }
+  .orders-table th,
+  .orders-table td {
+    font-size: 0.8rem;
+  }
+}

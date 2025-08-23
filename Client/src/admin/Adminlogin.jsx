@@ -53,6 +53,11 @@ const AdminLogin = () => {
           <p className="text-muted">Secure access to your dashboard</p>
         </div>
 
+<div style={{textAlign:"center"}}><hr />
+  <p><b>Admin Id : </b>kapilpatelinfo@gmail.com</p>
+  <p><b>password : </b>pass@123</p><hr /><br />
+</div>
+       
         {error && (
           <Alert variant="danger" className="text-center">
             {error}

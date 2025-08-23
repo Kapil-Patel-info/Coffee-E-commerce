@@ -6,6 +6,9 @@ import { addtoCart } from "../cartSlice";
 import BackEndUrl from "../config/BackEndUrl";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import "../css/search.css"
 
 const Search = () => {
   const [query, setQuery] = useState("");
@@ -44,53 +47,56 @@ const Search = () => {
         className="form-control mb-4"
       />
 
-      <div className="product-grid">
+      <Row className="g-4">
         {results.map((product) => (
-          <Card className="product-card" key={product._id}>
-            <Card.Img
-              variant="top"
-              src={product.defaultImage}
-              alt={product.name}
-              className="product-image"
-              onClick={() => navigate(`/productdisplay/${product._id}`)}
-              style={{ cursor: "pointer" }}
-            />
-            <Card.Body>
-              <Card.Title
+          <Col xs={12} sm={6} md={4} lg={3} key={product._id}>
+            <Card className="product-card h-100">
+              <Card.Img
+                variant="top"
+                src={product.defaultImage}
+                alt={product.name}
+                className="product-image"
                 onClick={() => navigate(`/productdisplay/${product._id}`)}
-                style={{ cursor: "pointer" }}
-              >
-                {product.name}
-              </Card.Title>
-              <Card.Text>
-                <small>{product.description}</small>
-                <br />
-                <strong>Category:</strong> {product.category}
-              </Card.Text>
-              <h5 className="text-success">₹{product.price}</h5>
-              <Button
-                variant="dark"
-                onClick={() =>
-                  dispatch(
-                    addtoCart({
-                      id: product._id,
-                      name: product.name,
-                      description: product.description,
-                      price: product.price,
-                      category: product.category,
-                      images: product.images,
-                      defaultImage: product.defaultImage,
-                      qnty: 1,
-                    })
-                  )
-                }
-              >
-                Add to Cart
-              </Button>
-            </Card.Body>
-          </Card>
+              />
+              <Card.Body>
+                <Card.Title
+                  className="text-truncate"
+                  onClick={() => navigate(`/productdisplay/${product._id}`)}
+                  style={{ cursor: "pointer" }}
+                >
+                  {product.name}
+                </Card.Title>
+                <Card.Text className="product-desc">
+                  <small>{product.description}</small>
+                  <br />
+                  <strong>Category:</strong> {product.category}
+                </Card.Text>
+                <h5 className="text-success">₹{product.price}</h5>
+                <Button
+                  variant="dark"
+                  className="w-100"
+                  onClick={() =>
+                    dispatch(
+                      addtoCart({
+                        id: product._id,
+                        name: product.name,
+                        description: product.description,
+                        price: product.price,
+                        category: product.category,
+                        images: product.images,
+                        defaultImage: product.defaultImage,
+                        qnty: 1,
+                      })
+                    )
+                  }
+                >
+                  Add to Cart
+                </Button>
+              </Card.Body>
+            </Card>
+          </Col>
         ))}
-      </div>
+      </Row>
     </div>
   );
 };

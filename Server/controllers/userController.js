@@ -31,14 +31,14 @@ const userLogin = async (req, res) => {
     const match = await bcrypt.compare(req.body.password, user.password);
     if (!match) return res.status(400).json({ message: "Invalid Credentials" });
 
-    // ✅ Create token
+
     const accessToken = jwt.sign(
       { _id: user._id },
       process.env.TOKEN_SECRET,
       { expiresIn: "7d" }
     );
 
-    // ✅ Send token + username + email
+
     res.json({
       accessToken,
       username: user.name,

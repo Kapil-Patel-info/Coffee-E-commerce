@@ -4,6 +4,9 @@ import axios from "axios";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import { useSelector } from "react-redux";
 import BackEndUrl from "../config/BackEndUrl";
 
@@ -46,7 +49,7 @@ const CheckOut = () => {
 
     const initPay = (data) => {
         const options = {
-            key: "rzp_test_N6Mk5qdLZmYD35", // your Razorpay key
+            key: "rzp_test_N6Mk5qdLZmYD35",
             amount: data.amount,
             currency: data.currency,
             name: "Your Store",
@@ -108,7 +111,7 @@ const CheckOut = () => {
             });
 
             initPay(res.data.data);
-           
+
         } catch (err) {
             alert("Payment failed: " + (err.response?.data?.message || "Unknown error"));
         } finally {
@@ -117,67 +120,80 @@ const CheckOut = () => {
     };
 
     return (
-        <>
-            <h1>Checkout</h1>
-            <h3 style={{ textAlign: "center" }}>Net Payable Amount: ₹{totalAmount}</h3>
+        <Container className="my-4">
+            <h1 className="text-center mb-4">Checkout</h1>
+            <h3 className="text-center text-primary mb-4">
+                Net Payable Amount: ₹{totalAmount}
+            </h3>
 
-            <div style={{ margin: "20px auto", maxWidth: "600px" }}>
-                <h4>Order Summary:</h4>
-                {cartData.length > 0 ? (
-                    <Table striped bordered hover>
-                        <thead>
-                            <tr>
-                                <th>Product</th>
-                                <th>Qty</th>
-                                <th>Price</th>
-                                <th>Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {cartData.map((item, idx) => (
-                                <tr key={idx}>
-                                    <td>{item.name}</td>
-                                    <td>{item.qnty}</td>
-                                    <td>₹{item.price}</td>
-                                    <td>₹{item.price * item.qnty}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </Table>
-                ) : <p>No items in cart.</p>}
-            </div>
+            <Row className="g-4">
+                {/* Left Side - Order Summary */}
+                <Col xs={12} md={7}>
+                    <h4 className="mb-3">Order Summary</h4>
+                    {cartData.length > 0 ? (
+                        <div className="table-responsive">
+                            <Table striped bordered hover>
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Qty</th>
+                                        <th>Price</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {cartData.map((item, idx) => (
+                                        <tr key={idx}>
+                                            <td>{item.name}</td>
+                                            <td>{item.qnty}</td>
+                                            <td>₹{item.price}</td>
+                                            <td>₹{item.price * item.qnty}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </Table>
+                        </div>
+                    ) : (
+                        <p>No items in cart.</p>
+                    )}
+                </Col>
 
-            <Form style={{ width: "300px", margin: "auto" }}>
-                <Form.Group className="mb-3">
-                    <Form.Label>Name</Form.Label>
-                    <Form.Control value={mydata.name || ""} readOnly />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control value={mydata.email || ""} readOnly />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                    <Form.Label>Address</Form.Label>
-                    <Form.Control value={mydata.address || ""} readOnly />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                    <Form.Label>City</Form.Label>
-                    <Form.Control value={mydata.city || ""} readOnly />
-                </Form.Group>
-                <Form.Group className="mb-3">
-                    <Form.Label>Pincode</Form.Label>
-                    <Form.Control value={mydata.pincode || ""} readOnly />
-                </Form.Group>
-                <Button
-                    variant="primary"
-                    onClick={handlePay}
-                    disabled={loading}
-                    style={{ width: "100%" }}
-                >
-                    {loading ? "Processing..." : `Pay ₹${totalAmount}`}
-                </Button>
-            </Form>
-        </>
+                {/* Right Side - User Details & Pay Button */}
+                <Col xs={12} md={5}>
+                    <h4 className="mb-3">Shipping Details</h4>
+                    <Form>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control value={mydata.name || ""} readOnly />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control value={mydata.email || ""} readOnly />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Address</Form.Label>
+                            <Form.Control value={mydata.address || ""} readOnly />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>City</Form.Label>
+                            <Form.Control value={mydata.city || ""} readOnly />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Pincode</Form.Label>
+                            <Form.Control value={mydata.pincode || ""} readOnly />
+                        </Form.Group>
+                        <Button
+                            variant="primary"
+                            onClick={handlePay}
+                            disabled={loading}
+                            className="w-100"
+                        >
+                            {loading ? "Processing..." : `Pay ₹${totalAmount}`}
+                        </Button>
+                    </Form>
+                </Col>
+            </Row>
+        </Container>
     );
 };
 

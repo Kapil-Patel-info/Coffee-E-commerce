@@ -45,7 +45,7 @@ const Header = () => {
                     <Navbar.Collapse>
                         <Nav className="mx-auto nav-center">
                             <Nav.Link as={Link} to="/home">Home</Nav.Link>
-                            <Nav.Link as={Link} to="/orders">Orders</Nav.Link>
+                            {/* <Nav.Link as={Link} to="/orders">Orders</Nav.Link> */}
                             <Nav.Link as={Link} to="/about">About</Nav.Link>
                             <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
                         </Nav>

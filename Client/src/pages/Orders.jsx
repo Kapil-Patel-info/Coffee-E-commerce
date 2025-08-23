@@ -10,6 +10,8 @@ const Orders = () => {
   const loadData = async () => {
     try {
       const response = await axios.get(`${BackEndUrl}/admin/ourorder`);
+      console.log(localStorage.getItem(userid));
+
       setMydata(response.data);
     } catch (error) {
       console.log("Error loading orders:", error);
@@ -25,21 +27,17 @@ const Orders = () => {
   return (
     <div className="orders-container">
       <h1 className="orders-title">Order Management</h1>
+
       {loading ? (
         <p className="loading-text">Loading orders...</p>
       ) : (
-        <div className="table-wrapper">
+        <div className="table-responsive">
           <table className="orders-table">
             <thead>
               <tr>
                 <th>#</th>
-
                 <th>Products</th>
                 <th>Amount</th>
-
-
-
-
                 <th>Order Date</th>
                 <th>Expected Delivery</th>
                 <th>Payment Status</th>
@@ -49,22 +47,35 @@ const Orders = () => {
               {mydata.map((order, index) => (
                 <tr key={order._id || index}>
                   <td>{index + 1}</td>
-
-                  <td>
-                    {order.products}
+                  <td className="products-cell">
+                    {Array.isArray(order.products)
+                      ? order.products.map((p, i) => (
+                          <div key={i} className="product-item">
+                            {p.name} (x{p.qnty})
+                          </div>
+                        ))
+                      : order.products}
                   </td>
                   <td>₹{order.amount}</td>
-
-
-
-
                   <td>{new Date(order.createdAt).toLocaleDateString()}</td>
                   <td>
                     {new Date(
                       new Date(order.createdAt).getTime() + 4 * 24 * 60 * 60 * 1000
                     ).toLocaleDateString()}
                   </td>
-                  <td>{order.payment_status}</td>
+                  <td>
+                    <span
+                      className={`status-badge ${
+                        order.payment_status === "Paid"
+                          ? "paid"
+                          : order.payment_status === "Pending"
+                          ? "pending"
+                          : "failed"
+                      }`}
+                    >
+                      {order.payment_status}
+                    </span>
+                  </td>
                 </tr>
               ))}
             </tbody>

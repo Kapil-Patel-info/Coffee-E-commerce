@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import BackEndUrl from '../config/BackEndUrl';
 import { Container, Form, Button, Row, Col, Card } from 'react-bootstrap';
+import { FaCoffee } from "react-icons/fa";  
 
 const Login = () => {
     const navigate = useNavigate();
@@ -17,11 +18,10 @@ const Login = () => {
 
             localStorage.setItem("token", response.data.accessToken);
             localStorage.setItem("username", response.data.username);
-
             alert("Login successful");
 
             setTimeout(() => {
-                navigate("/economy");
+                navigate("/home");
             }, 1500);
 
         } catch (error) {
@@ -33,6 +33,14 @@ const Login = () => {
     return (
         <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "80vh" }}>
             <Card className="p-4 shadow-sm" style={{ width: "100%", maxWidth: "400px" }}>
+                
+
+                <div className="text-center mb-4">
+                    <FaCoffee size={30} color="#0d6efd" /> 
+                    <h3 className="mt-3">Join Sleepy Owl Coffee</h3>
+                    <p className="text-muted">Login Your account to start your coffee journey</p>
+                </div>
+
                 <Form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
