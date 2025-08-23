@@ -1,4 +1,4 @@
 
-const BackEndUrl="http://localhost:8080";
+const BackEndUrl="https://coffee-e-commerce-backend.onrender.com";
 
 export default BackEndUrl;
