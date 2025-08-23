@@ -1,3 +1,4 @@
+import "../css/AdminDashboard.css";
 import { Nav, Container, Row, Col, Button, Badge } from "react-bootstrap";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import {
@@ -9,7 +10,7 @@ import {
   FaSignOutAlt,
   FaCog,
 } from "react-icons/fa";
-import "../css/AdminDashboard.css";
+
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
