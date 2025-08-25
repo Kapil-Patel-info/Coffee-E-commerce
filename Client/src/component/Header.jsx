@@ -30,7 +30,7 @@ const Header = () => {
         localStorage.clear();
         setUsername(null);
         toast.info("User Logged out!", { position: "top-right" });
-        window.dispatchEvent(new Event("userChange")); // trigger update
+        window.dispatchEvent(new Event("userChange")); 
         navigate('/login');
     };
 

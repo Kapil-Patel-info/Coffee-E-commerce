@@ -11,6 +11,7 @@ import { FaLock, FaUserShield } from "react-icons/fa";
 import axios from "axios";
 import BackEndUrl from "../config/BackEndUrl";
 import { useNavigate } from "react-router-dom";
+import "../css/AdminLogin.css"
 
 const AdminLogin = () => {
   const [adminid, setAdminid] = useState("");
@@ -41,23 +42,7 @@ const AdminLogin = () => {
 
   return (
     <>
-      {/* Inline CSS */}
-      <style>
-        {`
-          .beans {
-            font-size: 40px;
-            margin: 10px;
-            margin-bottom: 20px;
-          }
-          .admin-login-container {
-            min-height: 100vh;
-            background: #f9f9f9;
-          }
-          .admin-login-container h2 {
-            font-family: 'Poppins', sans-serif;
-          }
-        `}
-      </style>
+      
 
       <Container className="admin-login-container d-flex align-items-center justify-content-center">
         <Card

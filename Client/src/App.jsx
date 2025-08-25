@@ -52,6 +52,7 @@ const App=()=>{
              <Route path="edit" element ={<Edit/>} />
              <Route  path="showProducts" element={<ShowProducts/>}/>
               <Route  path="feedback" element={<CustomerFeedback/>}/>
+              <Route  path="adminlogin" element={<AdminLogin/>}/>
               <Route  path="manageCustomers" element={<ManageCustomers/>}/>
 
 

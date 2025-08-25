@@ -10,6 +10,8 @@ import {
   FaCog,
 } from "react-icons/fa";
 
+import "../css/AdminDashboard.css"
+
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -18,51 +20,12 @@ const AdminDashboard = () => {
   const handleLogout = () => {
     localStorage.removeItem("adminid");
     localStorage.removeItem("adminToken");
-    navigate("/adminlogin");
+    navigate("/admindashboard/adminlogin");
   };
 
   return (
     <>
-      {/* Styles inside component */}
-      <style>{`
-        .admin-dashboard {
-          min-height: 100vh;
-          background-color: #f8f9fa;
-        }
-
-        .admin-sidebar {
-          width: 240px;
-          min-height: 100vh;
-        }
-
-        .admin-sidebar .nav-link-custom {
-          color: white;
-          font-weight: 500;
-          padding: 12px;
-          border-radius: 8px;
-          margin-bottom: 8px;
-          transition: background 0.3s ease;
-        }
-
-        .admin-sidebar .nav-link-custom:hover,
-        .admin-sidebar .nav-link-custom.active {
-          background-color: #343a40;
-          text-decoration: none;
-        }
-
-        .admin-content {
-          min-height: 100vh;
-          overflow-y: auto;
-        }
-
-        @media (max-width: 768px) {
-          .admin-sidebar {
-            width: 100%;
-            min-height: auto;
-            margin-bottom: 1rem;
-          }
-        }
-      `}</style>
+      
 
       <Container fluid className="admin-dashboard p-0">
         {/* Admin Header */}
