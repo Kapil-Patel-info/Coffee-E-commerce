@@ -1,8 +1,8 @@
 import  {BrowserRouter, Routes, Route} from "react-router-dom";
 import Layout from "./Layout";
 import Home from "./pages/Home";
-import AdminLogin from "./admin/AdminLogin";
-import AdminDashBoard from "./admin/Admindashboard";
+import AdminLogin from "./admin/Adminlogin";
+import AdminDashBoard from "./admin/AdminDashBoard";
 import UploadProduct from "./admin/UploadProduct";
 import CartData from "./CartData";
 import Login from "./pages/Login";

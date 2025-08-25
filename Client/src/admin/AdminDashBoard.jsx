@@ -13,7 +13,7 @@ import {
 import "../css/AdminDashBoard.css"
 
 
-const Admindashboard = () => {
+const AdminDashBoard = () => {
   const navigate = useNavigate();
   const adminId = localStorage.getItem("adminid");
 
@@ -78,4 +78,4 @@ const Admindashboard = () => {
   );
 };
 
-export default Admindashboard;
+export default AdminDashBoard;
