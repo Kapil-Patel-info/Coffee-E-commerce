@@ -10,7 +10,7 @@ import {
   FaCog,
 } from "react-icons/fa";
 
-import "../css/AdminDashBoard.CSS"
+import "../css/admin-dashboard.css"
 
 
 const AdminDashBoard = () => {
