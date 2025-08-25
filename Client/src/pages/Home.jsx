@@ -30,7 +30,7 @@ const Home = () => {
     try {
       const response = await axios.get(`${BackEndUrl}/product/homedisplay`);
       setMydata(response.data);
-       
+       console.log("products data" ,response.data);
     } catch (error) {
       console.error("Error loading products:", error);
     }
