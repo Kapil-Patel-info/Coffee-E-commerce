@@ -5,7 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { FaShoppingCart, FaSearch } from "react-icons/fa";
 import { useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-import "../css/Header.css";
+import "../css/header.css";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
